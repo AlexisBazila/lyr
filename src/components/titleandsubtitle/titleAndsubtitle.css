@@ -1,0 +1,14 @@
+.titleAndSubtitle {
+  margin: 5px;
+}
+.title {
+  display: flex;
+  align-items: center;
+}
+
+.linea {
+  height: 1px;
+  width: 25px;
+  background-color: black;
+  margin-right: 7px;
+}
