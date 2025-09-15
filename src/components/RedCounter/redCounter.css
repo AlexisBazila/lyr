@@ -1,0 +1,11 @@
+.valorCounter{
+    font-size: 100px;
+color: #EC1F24;
+}
+.labelCounter{
+    font-size: 20px;
+}
+
+.redCounter{
+    max-width: 30%;
+}

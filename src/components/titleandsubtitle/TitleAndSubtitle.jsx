@@ -3,15 +3,15 @@ import "./titleAndSubtitle.css";
 
 import { RxBorderSolid } from "react-icons/rx";
 
-function TitleAndSubtitle() {
+function TitleAndSubtitle({ title, subtitle }) {
   return (
     <div className="titleAndSubtitle">
       <div className="title">
         <div className="linea"></div>
-        <h2>TITULO</h2>
+        <h2>{title}</h2>
       </div>
       <div className="subtitle">
-        <h3>Subtitulo</h3>
+        <h3>{subtitle}</h3>
       </div>
     </div>
   );

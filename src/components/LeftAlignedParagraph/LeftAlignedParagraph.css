@@ -1,0 +1,34 @@
+
+.LeftAlignedParagraph p {
+  max-width: 40vw;
+  padding: 10px 90px 5px 0px;
+  margin-top: 10px;
+}
+
+/* Responsive */
+@media (max-height: 900px), (max-width: 1570px) {
+  .LeftAlignedParagraph p {
+    margin-top: 3px;
+  }
+}
+
+@media (max-width: 1260px) {
+  .LeftAlignedParagraph p {
+    max-width: 40vw;
+    margin-top: 5px;
+  }
+}
+
+@media (max-width: 1160px) {
+  .LeftAlignedParagraph p {
+    text-align: center;
+    padding: 10px 0px 5px 0;
+    max-width: 100vw;
+  }
+}
+
+@media (max-height: 768px), (max-width: 1024px) {
+  .LeftAlignedParagraph {
+    margin-bottom: 25px;
+  }
+}

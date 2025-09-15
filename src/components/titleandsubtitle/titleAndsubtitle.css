@@ -4,8 +4,12 @@
 .title {
   display: flex;
   align-items: center;
-}
+  font-size: 26px;
 
+}
+.subtitle{
+  font-size: 30px;
+}
 .linea {
   height: 1px;
   width: 25px;
