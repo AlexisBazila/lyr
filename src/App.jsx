@@ -14,7 +14,6 @@ function App() {
     <>
       <Nav />
       <div>
-        <h1>L&R Servicios Inmobiliarios</h1>
         <Home />
       </div>
       <Footer />

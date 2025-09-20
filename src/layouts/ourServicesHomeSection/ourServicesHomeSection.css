@@ -1,0 +1,8 @@
+.ourServicesHomeSection{
+    margin: 5%;
+}
+.servicesIcons{
+    display: flex;
+    justify-content: space-between;
+
+}

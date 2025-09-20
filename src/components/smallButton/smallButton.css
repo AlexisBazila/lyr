@@ -1,0 +1,8 @@
+.SmallButton {
+  background-color: #000;
+  color: #fff;
+  text-decoration: none;
+  font-size: 20px;
+  border-radius: 4px;
+  padding: 6px 20px;
+}

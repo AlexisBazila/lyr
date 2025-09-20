@@ -1,0 +1,12 @@
+.iconLabel{
+    max-width: 150px;
+    text-align: center;
+    margin: 30px;
+}
+.icon{
+    font-size: 150px;
+    color: #EC1F24;
+}
+.label{
+    font-size: 20px;
+}
