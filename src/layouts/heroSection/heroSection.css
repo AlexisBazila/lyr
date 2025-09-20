@@ -1,0 +1,23 @@
+.heroSection {
+  background-image: url("../../assets/images/building-hero.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 80vh;
+  display: flex;
+  align-items: center;
+}
+
+.heroTitle {
+  color: #fff;
+  max-width: 30vw;
+  margin: 5% 0 0 5%;
+}
+
+.heroTitle h1 {
+  font-size: 40px;
+}
+
+.heroTitle h2 {
+  font-size: 20px;
+}

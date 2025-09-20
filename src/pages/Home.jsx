@@ -4,11 +4,13 @@ import CounterSection from "../layouts/counterSection/CounterSection";
 import FeaturedSection from "../layouts/featuredSection/FeaturedSection";
 import AboutUsSection from "../layouts/aboutUsSection/aboutUsSection";
 import OurServicesHomeSection from "../layouts/ourServicesHomeSection/OurServicesHomeSection";
+import HeroSection from "../layouts/heroSection/HeroSection";
 
 function Home() {
   return (
     <div>
       <div>
+        <HeroSection />
         <CounterSection />
         <FeaturedSection />
         <AboutUsSection />
