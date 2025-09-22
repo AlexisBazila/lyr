@@ -1,7 +1,7 @@
 .heroSection {
   background-image: url("../../assets/images/building-hero.jpg");
   background-size: cover;
-  background-position: center;
+  background-position: bottom;
   background-repeat: no-repeat;
   height: 80vh;
   display: flex;
@@ -20,4 +20,17 @@
 
 .heroTitle h2 {
   font-size: 20px;
+}
+
+@media (max-width: 1160px) {
+.heroSection {
+  height: 70vh;
+}
+.heroTitle h1 {
+  font-size: 35px;
+}
+
+.heroTitle h2 {
+  font-size: 15px;
+}
 }
