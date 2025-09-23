@@ -30,18 +30,18 @@ function SmallSearcher() {
             <input
               type="text"
               id="location"
-              className="bg-white border border-black text-black text-1xl rounded-lg block w-100  ps-12 p-2.5 placeholder-black max-[1160px]:w-70 max-[950px]:w-50"
+              className="bg-white border border-black text-black text-1xl rounded-lg block w-100  ps-12 p-2.5 placeholder-black  focus:ring-1 focus:ring-black max-[1160px]:w-70 max-[950px]:w-50 max-[650px]:w-full"
               placeholder="Ubicación"
             />{" "}
           </div>
-          {/* TIPE OF PROPERTY SELECT*/}
+          {/*SELECT*/}
           <div class="relative  mb-6 mr-9 max-[1160px]:mr-3">
             <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none text-2xl">
               <BsBuildings className="text-black" />
             </div>
             <select
               id="countries"
-              class="bg-white border border-black text-black text-1xl rounded-lg  block w-55 ps-12 p-2.5 placeholder-black max-[950px]:w-30"
+              class="bg-white border border-black text-black text-1xl rounded-lg  block w-55 ps-12 p-2.5 placeholder-black focus:ring-1 focus:ring-black  max-[950px]:w-30 max-[650px]:w-full"
             >
               <option selected>Tipo de propiedad</option>
               <option value="casa">Casa</option>
@@ -51,22 +51,22 @@ function SmallSearcher() {
               <option value="local">Local comercial</option>
             </select>
           </div>
-          {/* TIPE OF PROPERTY SELECT*/}
-          {/* OPERATION SELECT*/}
+          {/*SELECT*/}
+          {/*SELECT*/}
           <div class="relative mb-6 mr-9 max-[1160px]:mr-3">
             <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none text-2xl">
               <LiaKeySolid className="text-black" />
             </div>
             <select
               id="countries"
-              class="bg-white border border-black text-black text-1xl rounded-lg  block w-50 ps-12 p-2.5 placeholder-black max-[950px]:w-30"
+              class="bg-white border border-black text-black text-1xl rounded-lg  block w-50 ps-12 p-2.5 placeholder-black focus:ring-1 focus:ring-black max-[950px]:w-30 max-[650px]:w-full"
             >
               <option selected>Operación</option>
               <option value="venta">Venta</option>
               <option value="alquiler">Alquiler</option>
             </select>
           </div>
-          {/* OPERATION SELECT*/}
+          {/*SELECT*/}
           <SmallButton caption={"Buscar"} />
         </form>
       </div>

@@ -1,8 +1,7 @@
 @import "tailwindcss";
-@plugin "flyonui";
-@import "flyonui/variants.css";
-@source "flyonui/dist/index.js";
-
+@import "flowbite/src/themes/default";
+@plugin "flowbite/plugin";
+@source "../node_modules/flowbite";
 h2 {
   font-family: "Montserrat", sans-serif;
   font-weight: 300;
