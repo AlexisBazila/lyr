@@ -16,3 +16,16 @@
   background-color: black;
   margin-right: 7px;
 }
+
+@media (max-width: 1160px) {
+  .linea{
+    margin-bottom: 2%;
+  }
+.title {
+flex-direction: column;
+
+}
+.subtitle{
+text-align: center;
+}
+}

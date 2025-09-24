@@ -22,7 +22,7 @@ function CounterSection() {
             ]}
           />
           <div className="countersCounters">
-            <RedCounter valor={"+10"} label={"AÑOS EN EL MERCADO"} />
+            <RedCounter valor={"10"} label={"AÑOS EN EL MERCADO"} />
             <RedCounter valor={"120"} label={"CLIENTES FELICES"} />
             <RedCounter valor={"500"} label={"OPERACIONES REALIZADAS"} />
           </div>

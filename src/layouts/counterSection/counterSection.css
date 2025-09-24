@@ -1,15 +1,36 @@
 .imgDiv {
-  height: 450px;
-  width: 450px;
+  height: 600px;
+  width: 600px;
   background-color: grey;
   margin-right: 30px;
 }
 
 .counterContent{
   display: flex;
+  justify-content: center;
   margin: 5% 10%;
 }
 
 .countersCounters{
   display: flex;
+  justify-content: space-between;
+}
+
+@media (max-width: 1600px) {
+.imgDiv {
+  height: 500px;
+  width: 500px;
+}
+
+}
+@media (max-width: 1160px) {
+.counterContent{
+  flex-direction: column;
+  align-items: center;
+}
+.imgDiv {
+  height: 600px;
+  width: 600px;
+  margin-bottom: 10%;
+}
 }
