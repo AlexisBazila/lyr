@@ -16,3 +16,20 @@ max-width: 23vh;
     font-size: 80px;
 }
 }
+
+@media (max-width: 650px) {
+.valorCounter{
+    display: flex;
+    flex-direction: column;
+justify-content: center;
+align-items: center;
+
+}
+.labelCounter{
+    max-width: 100%;  
+    text-align: center;  
+}
+.redCounter{
+max-width: 100%;
+}
+}

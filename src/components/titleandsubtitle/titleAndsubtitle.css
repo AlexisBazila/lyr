@@ -23,6 +23,7 @@
   }
 .title {
 flex-direction: column;
+text-align: center;
 
 }
 .subtitle{
