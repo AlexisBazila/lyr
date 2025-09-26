@@ -6,3 +6,10 @@
     justify-content: space-between;
 
 }
+
+@media (max-width: 1160px) {
+.servicesIcons{
+    flex-wrap: wrap;
+    justify-content: center;
+}
+}

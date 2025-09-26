@@ -32,3 +32,25 @@
   top: 20%;
   z-index: 2;
 }
+
+@media (max-width: 1160px) {
+.aboutUsSection {
+  flex-direction: column;
+  align-items: center;
+}
+.aboutUsContent{
+  text-align: center;
+}
+.aboutUsImages {
+  margin: 5% 25% 10% 0;
+}
+}
+
+@media (max-width: 650px) {
+.aboutUsImages {
+  position: relative;
+  height: 70vw;
+  width: 70vw;
+
+}
+}
