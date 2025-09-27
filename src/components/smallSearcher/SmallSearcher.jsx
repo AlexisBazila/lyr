@@ -67,7 +67,7 @@ function SmallSearcher() {
             </select>
           </div>
           {/*SELECT*/}
-          <SmallButton caption={"Buscar"} />
+          <SmallButton caption={"Buscar"} className="px-5 py-2" />
         </form>
       </div>
     </div>

@@ -5,11 +5,19 @@ import "./counterSection.css";
 import LeftAlignedParagraph from "../../components/LeftAlignedParagraph/LeftAlignedParagraph";
 import RedCounter from "../../components/RedCounter/RedCounter";
 
+import counterPhoto from "../../assets/images/countersPick.jpg";
+
 function CounterSection() {
   return (
     <section className="counterSection">
       <div className="counterContent">
-        <div className="imgDiv"></div>
+        <div className="imgDiv">
+          <img
+            className="w-full h-full object-cover"
+            src={counterPhoto}
+            alt=""
+          />
+        </div>
         <div className="counterTexts">
           <TitleAndSubtitle
             title={"CONFIANZA EN CIFRAS"}

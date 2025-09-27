@@ -15,9 +15,9 @@
 
 .aboutUsImages img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
   border-radius: 7px;
-  border: 1px solid #000;
 }
 /* Imagen de atrás */
 .backImage {
@@ -34,23 +34,22 @@
 }
 
 @media (max-width: 1160px) {
-.aboutUsSection {
-  flex-direction: column;
-  align-items: center;
-}
-.aboutUsContent{
-  text-align: center;
-}
-.aboutUsImages {
-  margin: 5% 25% 10% 0;
-}
+  .aboutUsSection {
+    flex-direction: column;
+    align-items: center;
+  }
+  .aboutUsContent {
+    text-align: center;
+  }
+  .aboutUsImages {
+    margin: 5% 25% 10% 0;
+  }
 }
 
 @media (max-width: 650px) {
-.aboutUsImages {
-  position: relative;
-  height: 70vw;
-  width: 70vw;
-
-}
+  .aboutUsImages {
+    position: relative;
+    height: 70vw;
+    width: 70vw;
+  }
 }

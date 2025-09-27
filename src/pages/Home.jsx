@@ -23,7 +23,7 @@ function Home() {
       </div>
       <div className="mt-[25vh] max-[650px]:mt-[35vh]">
         <CounterSection />
-        {/* <FeaturedSection /> */}
+        <FeaturedSection />
         <AboutUsSection />
         <OurServicesHomeSection />
       </div>
