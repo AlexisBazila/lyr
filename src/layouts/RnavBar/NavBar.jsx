@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import logo from "../../assets/images/LyRlogoTest.png";
 import { IoMenu } from "react-icons/io5";
 
@@ -10,9 +11,9 @@ function NavBar() {
       <div className="max-w-7xl mx-auto px-4 flex flex-col items-center">
         {/* Logo centrado con botón hamburguesa absoluto */}
         <div className="mt-4 relative flex items-center justify-center w-full md:justify-center">
-          <a href="#">
+          <Link to="/">
             <img src={logo} alt="Logo" className="h-16" />
-          </a>
+          </Link>
 
           {/* Botón Hamburguesa (solo mobile) */}
           <button
@@ -34,9 +35,9 @@ function NavBar() {
         <div className="hidden md:flex items-center justify-center h-20 text-xl">
           <ul className="flex space-x-10 text-white font-bold uppercase">
             <li>
-              <a href="#inicio" className="hover:text-[#EC1F24] transition">
+              <Link to="/" className="hover:text-[#EC1F24] transition">
                 Inicio
-              </a>
+              </Link>
             </li>
             <li>
               <a href="#nosotros" className="hover:text-[#EC1F24] transition">
@@ -68,13 +69,13 @@ function NavBar() {
       {/* Menú Mobile fullscreen */}
       {isOpen && (
         <div className="fixed inset-0 bg-white bg-opacity-95 flex flex-col items-center justify-center space-y-8 text-black text-2xl uppercase z-40">
-          <a
-            href="#"
+          <Link
+            to="/"
             onClick={() => setIsOpen(false)}
             className="hover:text-[#EC1F24]"
           >
             <img src={logo} alt="Logo" className="h-16" />
-          </a>
+          </Link>
           <a
             href="#nosotros"
             onClick={() => setIsOpen(false)}

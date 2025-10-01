@@ -1,11 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./smallButton.css";
 
-function SmallButton({ caption, className = "" }) {
+function SmallButton({ caption, className = "", to }) {
   return (
-    <a href="#" className={`SmallButton ${className}`}>
+    <Link to={to} className={`SmallButton ${className}`}>
       {caption}
-    </a>
+    </Link>
   );
 }
 

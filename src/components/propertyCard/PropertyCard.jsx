@@ -83,7 +83,11 @@ function PropertyCard() {
           <p>Direccion de la propiedad</p>
         </div>
         <div className="flex items-center">
-          <SmallButton caption="Ver" className="mr-6 px-8 py-3 font-bold" />
+          <SmallButton
+            caption="Ver"
+            className="mr-6 px-8 py-3 font-bold"
+            to="/info-propiedad"
+          />
           <h5 className="text-3xl font-bold border-black border-l-2 pl-2">
             500.000 AR$
           </h5>

@@ -1,0 +1,48 @@
+.PropertytitleAndSubtitle {
+  margin: 5px;
+}
+.title {
+  display: flex;
+  align-items: center;
+  font-size: 26px;
+
+}
+.subtitle{
+  font-size: 30px;
+  display: flex;
+  align-items: center;
+}
+.linea {
+  height: 1px;
+  width: 40px;
+  background-color: black;
+  margin-right: 1%;
+}
+.title h2{
+  text-transform: uppercase;
+}
+.propertyRuta{
+  margin: 2% 0 2% 0;
+}
+.propertyTipeOfTransaction{
+  display: flex;
+  align-items: center;
+  margin-left: 1%;
+}
+.propertyTipeOfTransaction p{
+font-size: 20px;
+font-weight: 600;
+}
+@media (max-width: 1160px) {
+  .linea{
+    margin-bottom: 2%;
+  }
+.title {
+flex-direction: column;
+text-align: center;
+
+}
+.subtitle{
+text-align: center;
+}
+}
