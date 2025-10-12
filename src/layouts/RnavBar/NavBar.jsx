@@ -40,27 +40,30 @@ function NavBar() {
               </Link>
             </li>
             <li>
-              <a href="#nosotros" className="hover:text-[#EC1F24] transition">
+              <Link to="/nosotros" className="hover:text-[#EC1F24] transition">
                 Nosotros
-              </a>
+              </Link>
             </li>
             <li>
-              <a
-                href="#propiedades"
+              <Link
+                to="/propiedades"
                 className="hover:text-[#EC1F24] transition"
               >
                 Propiedades
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#tasaciones" className="hover:text-[#EC1F24] transition">
+              <Link
+                to="/tasaciones"
+                className="hover:text-[#EC1F24] transition"
+              >
                 Tasaciones
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#contacto" className="hover:text-[#EC1F24] transition">
+              <Link to="/contacto" className="hover:text-[#EC1F24] transition">
                 Contacto
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
@@ -76,34 +79,34 @@ function NavBar() {
           >
             <img src={logo} alt="Logo" className="h-16" />
           </Link>
-          <a
-            href="#nosotros"
+          <Link
+            to="/nosotros"
             onClick={() => setIsOpen(false)}
             className="hover:text-[#EC1F24]"
           >
             Nosotros
-          </a>
-          <a
-            href="#propiedades"
+          </Link>
+          <Link
+            to="/propiedades"
             onClick={() => setIsOpen(false)}
             className="hover:text-[#EC1F24]"
           >
             Propiedades
-          </a>
-          <a
-            href="#tasaciones"
+          </Link>
+          <Link
+            to="/tasaciones"
             onClick={() => setIsOpen(false)}
             className="hover:text-[#EC1F24]"
           >
             Tasaciones
-          </a>
-          <a
-            href="#contacto"
+          </Link>
+          <Link
+            to="/contacto"
             onClick={() => setIsOpen(false)}
             className="hover:text-[#EC1F24]"
           >
             Contacto
-          </a>
+          </Link>
         </div>
       )}
     </nav>

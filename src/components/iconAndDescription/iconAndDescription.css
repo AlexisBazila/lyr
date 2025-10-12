@@ -1,0 +1,12 @@
+.iconDescriprion {
+  max-width: 150px;
+  text-align: center;
+  margin: 30px;
+}
+.iconDescriprion {
+  font-size: 150px;
+  color: #ec1f24;
+}
+.iconDescriprion .label {
+  font-size: 20px;
+}

@@ -9,6 +9,9 @@ import Home from "./pages/Home";
 import HeroSection from "./layouts/heroSection/HeroSection";
 import SmallSearcher from "./components/smallSearcher/SmallSearcher";
 import InfoPropiedades from "./pages/InfoPropiedades";
+import Nosotros from "./pages/Nosotros";
+import Contacto from "./pages/Contacto";
+import Tasaciones from "./pages/Tasaciones";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -19,6 +22,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/info-propiedad" element={<InfoPropiedades />} />
+        <Route path="/nosotros" element={<Nosotros />} />
+        <Route path="/contacto" element={<Contacto />} />
+        <Route path="/tasaciones" element={<Tasaciones />} />
       </Routes>
       <Footer />
     </Router>
