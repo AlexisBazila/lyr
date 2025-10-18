@@ -1,9 +1,9 @@
 import React from "react";
 import "./heroSection.css";
 
-function HeroSection({ title, subtitle }) {
+function HeroSection({ title, subtitle, className }) {
   return (
-    <section className="heroSection">
+    <section className={`heroSection ${className || "h-[80vh]"}`}>
       <div className="overlay">
         <div className="heroTitle">
           <h1>{title}</h1>

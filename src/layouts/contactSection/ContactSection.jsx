@@ -25,14 +25,14 @@ function ContactSection() {
               <label className="block text-sm mb-1">Nombre</label>
               <input
                 type="text"
-                className="w-full border-b border-gray-400 focus:border-black outline-none pb-1"
+                className="w-full border-0 border-b-2  focus:ring-0  border-gray-400 focus:border-black outline-none pb-1"
               />
             </div>
             <div>
               <label className="block text-sm mb-1">Dirección de email</label>
               <input
                 type="email"
-                className="w-full border-b border-gray-400 focus:border-black outline-none pb-1"
+                className="w-full border-0 border-b-2  focus:ring-0 border-gray-400 focus:border-black outline-none pb-1"
               />
             </div>
           </div>
@@ -40,7 +40,7 @@ function ContactSection() {
           <div className="grid grid-cols-2 gap-6 max-[640px]:grid-cols-1">
             <div>
               <label className="block text-sm mb-1">Interesado en:</label>
-              <select className="w-full border-b border-gray-400 focus:border-black outline-none pb-1 bg-transparent">
+              <select className="w-full border-0 border-b-2  focus:ring-0 border-gray-400 focus:border-black outline-none pb-1 bg-transparent">
                 <option value="">Seleccione una opción</option>
                 <option value="venta">Compra o venta</option>
                 <option value="tasacion">Tasación</option>
@@ -51,7 +51,7 @@ function ContactSection() {
               <label className="block text-sm mb-1">Teléfono</label>
               <input
                 type="tel"
-                className="w-full border-b border-gray-400 focus:border-black outline-none pb-1"
+                className="w-full border-0 border-b-2  focus:ring-0 border-gray-400 focus:border-black outline-none pb-1"
               />
             </div>
           </div>
@@ -60,7 +60,7 @@ function ContactSection() {
             <label className="block text-sm mb-1">Mensaje:</label>
             <textarea
               rows="3"
-              className="w-full border-b border-gray-400 focus:border-black outline-none resize-none pb-1"
+              className="w-full border-0 border-b-2  focus:ring-0 border-gray-400 focus:border-black outline-none resize-none pb-1"
             ></textarea>
           </div>
 

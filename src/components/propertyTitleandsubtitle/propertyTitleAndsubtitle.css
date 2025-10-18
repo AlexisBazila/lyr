@@ -5,9 +5,8 @@
   display: flex;
   align-items: center;
   font-size: 26px;
-
 }
-.subtitle{
+.subtitle {
   font-size: 30px;
   display: flex;
   align-items: center;
@@ -18,31 +17,22 @@
   background-color: black;
   margin-right: 1%;
 }
-.title h2{
+.title h2 {
   text-transform: uppercase;
 }
-.propertyRuta{
-  margin: 2% 0 2% 0;
+.propertyRuta {
 }
-.propertyTipeOfTransaction{
+.propertyTipeOfTransaction {
   display: flex;
   align-items: center;
   margin-left: 1%;
 }
-.propertyTipeOfTransaction p{
-font-size: 20px;
-font-weight: 600;
+.propertyTipeOfTransaction p {
+  font-size: 20px;
+  font-weight: 600;
 }
 @media (max-width: 1160px) {
-  .linea{
+  .linea {
     margin-bottom: 2%;
   }
-.title {
-flex-direction: column;
-text-align: center;
-
-}
-.subtitle{
-text-align: center;
-}
 }

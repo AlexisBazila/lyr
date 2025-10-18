@@ -2,6 +2,8 @@ import React from "react";
 import ContactValorationSection from "../layouts/contactValorationSection/ContactValorationSection";
 import HeroSection from "../layouts/heroSection/HeroSection";
 import SmallSearcher from "../components/smallSearcher/SmallSearcher";
+import PropertyValue from "../layouts/propertyValue/PropertyValue";
+import FAQSection from "../layouts/faqSection/FAQSection";
 
 function Tasaciones() {
   return (
@@ -19,6 +21,8 @@ function Tasaciones() {
       </div>
       <div className="mt-[25vh] max-[650px]:mt-[35vh]">
         <ContactValorationSection />
+        <PropertyValue />
+        <FAQSection />
       </div>
     </>
   );

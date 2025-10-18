@@ -8,9 +8,9 @@ import { FaCamera } from "react-icons/fa";
 
 function PropertyGalerySection() {
   return (
-    <section className="pl-[5%] pr-[10%] pb-[2%]">
-      <div className="grid grid-cols-[60%_40%] gap-4">
-        <div className="relative">
+    <section className="pb-[2%]">
+      <div className="grid grid-cols-[60%_40%] max-[1160px]:grid-cols-1">
+        <div className="relative  mr-[2%]">
           <img
             className="w-full max-h-[70vh] object-cover rounded-sm border-1"
             src={alquiler1}

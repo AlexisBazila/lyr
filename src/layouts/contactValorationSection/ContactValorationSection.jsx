@@ -5,7 +5,7 @@ import LeftAlignedParagraph from "../../components/LeftAlignedParagraph/LeftAlig
 
 function ContactValorationSection() {
   return (
-    <section className="grid grid-cols-2 justify-center items-start px-[10%] py-16 gap-10 max-[1160px]:grid-cols-1">
+    <section className="grid grid-cols-[60%_40%] justify-center items-start px-[10%] py-16 gap-10 max-[1160px]:grid-cols-1">
       {/* Lado izquierdo */}
       <div className="flex flex-col justify-center">
         <div>
@@ -21,18 +21,18 @@ function ContactValorationSection() {
         </div>
 
         <div className="mt-10 w-full h-[350px] bg-gray-100 rounded-md flex items-center justify-center">
-          <div className="w-[70%] h-[60%] border-2 border-gray-400 rounded-sm"></div>
+          <img href="" className="w-[70%] h-[60%] rounded-sm" />
         </div>
       </div>
 
       {/* Formulario */}
-      <form className=" grid grid-cols-2 gap-x-8 gap-y-5 max-[600px]:grid-cols-1">
+      <form className=" grid grid-cols-2 gap-x-8 gap-y-5 max-[500px]:grid-cols-1">
         {/* Nombre */}
         <div>
-          <label className="block text-sm text-gray-600">Nombre</label>
+          <label className="block text-sm text-gray-600 mb-1">Nombre</label>
           <input
             type="text"
-            className="w-full border-b border-gray-400 focus:border-black outline-none py-1"
+            className="w-full border-0 border-b-2  focus:ring-0 border-gray-400 focus:border-black outline-none py-1 bg-transparent"
           />
         </div>
 
@@ -41,7 +41,7 @@ function ContactValorationSection() {
           <label className="block text-sm text-gray-600">Teléfono</label>
           <input
             type="text"
-            className="w-full border-b border-gray-400 focus:border-black outline-none py-1"
+            className="w-full border-0 border-b-2 focus:ring-0 border-gray-400 focus:border-black outline-none py-1"
           />
         </div>
 
@@ -50,7 +50,7 @@ function ContactValorationSection() {
           <label className="block text-sm text-gray-600">Celular</label>
           <input
             type="text"
-            className="w-full border-b border-gray-400 focus:border-black outline-none py-1"
+            className="w-full border-0 border-b-2 focus:ring-0 border-gray-400 focus:border-black outline-none py-1"
           />
         </div>
 
@@ -59,18 +59,20 @@ function ContactValorationSection() {
           <label className="block text-sm text-gray-600">Email</label>
           <input
             type="email"
-            className="w-full border-b border-gray-400 focus:border-black outline-none py-1"
+            className="w-full border-0 border-b-2 focus:ring-0 border-gray-400 focus:border-black outline-none py-1"
           />
         </div>
 
         {/* Dirección */}
-        <div className="col-span-2 relative">
-          <label className="block text-sm text-gray-600">Dirección</label>
+        <div className="col-span-2 relative max-[500px]:col-span-1">
+          <label className="block text-sm text-gray-600">
+            Dirección de la propiedad a tasar
+          </label>
           <input
             type="text"
-            className="w-full border-b border-gray-400 focus:border-black outline-none py-1 pr-8"
+            className="w-full border-0 border-b-2 focus:ring-0 border-gray-400 focus:border-black outline-none py-1 pr-8"
           />
-          <FaMapMarkedAlt className="absolute right-0 bottom-2 text-red-500 w-5 h-5" />
+          <FaMapMarkedAlt className="absolute right-3 bottom-2 text-red-500 w-5 h-5" />
         </div>
 
         {/* Tipo de propiedad */}
@@ -78,23 +80,21 @@ function ContactValorationSection() {
           <label className="block text-sm text-gray-600">
             Tipo de propiedad
           </label>
-          <select className="appearance-none w-full border-b border-gray-400 focus:border-black outline-none py-1 bg-transparent">
+          <select className="appearance-none border-0 w-full border-b-2 focus:ring-0 border-gray-400 focus:border-black outline-none py-1 bg-transparent">
             <option>Casa</option>
             <option>Departamento</option>
             <option>Terreno</option>
           </select>
-          <FaChevronDown className="absolute right-0 bottom-2 text-red-500 w-5 h-5" />
         </div>
 
         {/* Ambientes */}
         <div className="relative">
           <label className="block text-sm text-gray-600">Ambientes</label>
-          <select className="appearance-none w-full border-b border-gray-400 focus:border-black outline-none py-1 bg-transparent">
+          <select className="appearance-none border-0 w-full border-b-2 focus:ring-0 border-gray-400 focus:border-black outline-none py-1 bg-transparent">
             <option>1</option>
             <option>2</option>
             <option>3+</option>
           </select>
-          <FaChevronDown className="absolute right-0 bottom-2 text-red-500 w-5 h-5" />
         </div>
 
         {/* Antigüedad */}
@@ -102,7 +102,7 @@ function ContactValorationSection() {
           <label className="block text-sm text-gray-600">Antigüedad</label>
           <input
             type="text"
-            className="w-full border-b border-gray-400 focus:border-black outline-none py-1"
+            className="w-full border-0 border-b-2 focus:ring-0 border-gray-400 focus:border-black outline-none py-1"
           />
         </div>
 
@@ -113,9 +113,9 @@ function ContactValorationSection() {
           </label>
           <input
             type="number"
-            className="w-full border-b border-gray-400 focus:border-black outline-none py-1 pr-6"
+            className="w-full border-0 border-b-2 focus:ring-0 border-gray-400 focus:border-black outline-none py-1 pr-6"
           />
-          <span className="absolute right-0 bottom-2 text-red-500 text-sm">
+          <span className="absolute right-3 bottom-2 text-red-500 text-sm">
             m²
           </span>
         </div>
@@ -127,24 +127,24 @@ function ContactValorationSection() {
           </label>
           <input
             type="number"
-            className="w-full border-b border-gray-400 focus:border-black outline-none py-1 pr-6"
+            className="w-full border-0 border-b-2 focus:ring-0 border-gray-400 focus:border-black outline-none py-1 pr-6"
           />
-          <span className="absolute right-0 bottom-2 text-red-500 text-sm">
+          <span className="absolute right-3 bottom-2 text-red-500 text-sm">
             m²
           </span>
         </div>
 
         {/* Descripción */}
-        <div className="col-span-2">
+        <div className="col-span-2 max-[500px]:col-span-1">
           <label className="block text-sm text-gray-600">Descripción</label>
           <textarea
             rows="3"
-            className="w-full border-b border-gray-400 focus:border-black outline-none py-1"
+            className="w-full border-0 border-b-2 focus:ring-0 border-gray-400 focus:border-black outline-none py-1"
           ></textarea>
         </div>
 
         {/* Botón */}
-        <div className="col-span-2 mt-4">
+        <div className="col-span-2 mt-4 max-[500px]:col-span-1">
           <button
             type="submit"
             className="bg-black text-white font-semibold py-2 px-8 rounded-sm hover:bg-red-600 transition"
