@@ -18,7 +18,7 @@ function PropertyInfoSection() {
   return (
     <section className="grid grid-cols-[60%_40%] justify-center pb-[2%] min-h-[60vh] max-[900px]:grid-cols-1">
       {/* 🏠 Información principal */}
-      <div className="bg-white shadow-[0_2px_10px_rgba(0,0,0,0.15),0_0_6px_rgba(0,0,0,0.1)]  p-6 flex-1 mr-[2%]">
+      <div className="bg-white shadow-[0_2px_10px_rgba(0,0,0,0.15),0_0_6px_rgba(0,0,0,0.1)]  p-6 flex-1 mr-[2%] max-[900px]:mr-0 max-[900px]:mb-[2%]">
         <h2 className="text-4xl font-bold mb-6">|500.000 AR$</h2>
 
         <div className="grid grid-cols-2 gap-y-4 max-[560px]:grid-cols-1">

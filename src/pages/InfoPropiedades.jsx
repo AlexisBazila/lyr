@@ -10,11 +10,11 @@ function InfoPropiedades() {
   return (
     <>
       <div className="relative">
-        <HeroSection className={"h-[60vh]"} />
+        <HeroSection />
         <section className="px-[5%] py-[2%]">
           <PropertyTitleAndSubtitle
-            title={"Nombre propiedad"}
-            subtitle={"Direccion propiedad"}
+            title={"Departamento 2 hambientes nuevo"}
+            subtitle={"Los Andes 299-201, N3361 Oberá, Misiones"}
           />
         </section>
         <div className="px-[5%]">

@@ -11,7 +11,7 @@ import { GiBathtub } from "react-icons/gi";
 
 function PropertyCard() {
   return (
-    <div className="w-full max-w-[370px] max-h-[550px] mx-auto bg-white border border-gray-200 rounded-lg shadow-s">
+    <div className="w-full max-w-[370px]  mx-auto bg-white border border-gray-200 rounded-lg shadow-s">
       {/* IMAGE */}
       <a href="#">
         <img
@@ -35,42 +35,42 @@ function PropertyCard() {
           Nombre propiedad
         </h5>
         {/* FEATURES */}
-        <div className="mb-6 mt-6 flex flex-col min-[400px]:flex-row justify-between">
+        <div className="mb-6 mt-6 flex flex-col min-[300px]:flex-row justify-between">
           {/* FEATURE 1 */}
           <div>
             <div className="flex">
-              <i className="text-[40px] text-red-600">
+              <i className="text-[40px] text-red-600 max-[400px]:text-3xl">
                 <TbRulerMeasure2 />
               </i>
               <div className="leading-tight">
-                <p className=" font-bold">
+                <p className=" font-bold max-[400px]:text-sm">
                   120 m<sup>2</sup>
                 </p>
-                <p className="text-gray-600">Cubiertos</p>
+                <p className="text-gray-600 max-[400px]:text-sm">Cubiertos</p>
               </div>
             </div>
           </div>
           {/* FEATURE 2 */}
           <div>
             <div className="flex">
-              <i className="text-[40px] text-red-600">
+              <i className="text-[40px] text-red-600 max-[400px]:text-3xl">
                 <IoIosBed />
               </i>
               <div className="leading-tight">
-                <p className=" font-bold">2</p>
-                <p className="text-gray-600">Ambientes</p>
+                <p className=" font-bold max-[400px]:text-sm">2</p>
+                <p className="text-gray-600 max-[400px]:text-sm">Ambientes</p>
               </div>
             </div>
           </div>
           {/* FEATURE 3 */}
           <div>
             <div className="flex">
-              <i className="text-[40px] text-red-600">
+              <i className="text-[40px] text-red-600 max-[400px]:text-3xl">
                 <GiBathtub />
               </i>
               <div className="leading-tight">
-                <p className=" font-bold">1</p>
-                <p className="text-gray-600">Baños</p>
+                <p className=" font-bold max-[400px]:text-sm">1</p>
+                <p className="text-gray-600 max-[400px]:text-sm">Baños</p>
               </div>
             </div>
           </div>
@@ -88,7 +88,7 @@ function PropertyCard() {
             className="mr-6 px-8 py-3 font-bold"
             to="/info-propiedad"
           />
-          <h5 className="text-3xl font-bold border-black border-l-2 pl-2">
+          <h5 className="text-3xl font-bold border-black border-l-2 pl-2 max-[400px]:text-2xl max-[300px]:text-xl">
             500.000 AR$
           </h5>
         </div>

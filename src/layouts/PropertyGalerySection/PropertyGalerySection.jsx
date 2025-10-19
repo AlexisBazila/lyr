@@ -10,9 +10,9 @@ function PropertyGalerySection() {
   return (
     <section className="pb-[2%]">
       <div className="grid grid-cols-[60%_40%] max-[1160px]:grid-cols-1">
-        <div className="relative  mr-[2%]">
+        <div className="relative  mr-[2%] max-[1160px]:mr-0 max-[1160px]:mb-[2%]">
           <img
-            className="w-full max-h-[70vh] object-cover rounded-sm border-1"
+            className="w-full max-h-[70vh] object-cover rounded-sm border-1 "
             src={alquiler1}
             alt=""
           />

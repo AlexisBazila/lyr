@@ -3,6 +3,8 @@ import TitleAndSubtitle from "../../components/titleandsubtitle/TitleAndSubtitle
 import IconAndDescription from "../../components/iconAndDescription/IconAndDescription";
 import { TbTargetArrow } from "react-icons/tb";
 import { HiOutlineLightBulb } from "react-icons/hi2";
+import mision from "../../assets/images/mision.jpg";
+import vision from "../../assets/images/vision.jpg";
 
 function MisionAndVisionSection() {
   return (
@@ -16,25 +18,23 @@ function MisionAndVisionSection() {
           />
         </div>
         {/* Imagen */}
-        <div className="bg-gray-200 h-[25vw]  flex justify-center items-center rounded-sm max-[1500px]:h-[40vh] max-[1160px]:mb-2 max-[1160px]:h-[25vh]">
+        <div className="bg-gray-200 h-[25vw] flex justify-center items-center rounded-sm overflow-hidden max-[1500px]:h-[40vh] max-[1160px]:mb-2 max-[1160px]:h-[25vh]">
           <img
-            src="https://via.placeholder.com/300x200"
+            src={mision}
             alt="mision-vision"
-            className="object-cover rounded-sm"
+            className="w-full h-full object-cover object-center"
           />
         </div>
       </div>
 
       {/* Contenido principal */}
-      <div className="grid min-[1160px]:grid-cols-[40%_60%]  items-center">
+      <div className="grid min-[1160px]:grid-cols-[40%_60%]  items-center ">
         {/* Imagen */}
-        <div className="bg-gray-200 h-full  flex justify-center items-center rounded-sm max-[1160px]:h-[25vh]">
-          <img
-            src="https://via.placeholder.com/300x200"
-            alt="mision-vision"
-            className="object-cover rounded-sm"
-          />
-        </div>
+        <img
+          src={vision}
+          alt="mision-vision"
+          className="w-full h-full object-cover object-center bg-gray-200  flex justify-center items-center rounded-sm overflow-hidden max-[1500px]:h-[40vh] max-[1160px]:mb-2 max-[1160px]:h-[25vh]"
+        />
 
         {/* Misión y Visión */}
         <div className="grid grid-cols-2 justify-around gap-2 max-[1160px]:items-start max-[700px]:grid-cols-1">

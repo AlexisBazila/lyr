@@ -8,3 +8,9 @@
   height: fit-content;
   width: max-content;
 }
+
+@media (max-width: 400px) {
+  .SmallButton {
+    font-size: 16px;
+  }
+}

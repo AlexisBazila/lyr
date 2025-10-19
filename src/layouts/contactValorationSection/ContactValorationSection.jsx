@@ -2,12 +2,13 @@ import React from "react";
 import { FaMapMarkedAlt, FaChevronDown } from "react-icons/fa";
 import TitleAndSubtitle from "../../components/titleandsubtitle/TitleAndSubtitle";
 import LeftAlignedParagraph from "../../components/LeftAlignedParagraph/LeftAlignedParagraph";
+import pretasacion from "../../assets/images/pretasacion.png";
 
 function ContactValorationSection() {
   return (
-    <section className="grid grid-cols-[60%_40%] justify-center items-start px-[10%] py-16 gap-10 max-[1160px]:grid-cols-1">
+    <section className="grid grid-cols-[60%_40%] justify-center items-start px-[10%] py-16  max-[1160px]:grid-cols-1">
       {/* Lado izquierdo */}
-      <div className="flex flex-col justify-center">
+      <div className="flex flex-col justify-center mr-10 max-[1160px]:mr-0 max-[1160px]:mb-10">
         <div>
           <TitleAndSubtitle
             title="Pre-Tasación"
@@ -20,8 +21,12 @@ function ContactValorationSection() {
           />
         </div>
 
-        <div className="mt-10 w-full h-[350px] bg-gray-100 rounded-md flex items-center justify-center">
-          <img href="" className="w-[70%] h-[60%] rounded-sm" />
+        <div className="mt-10 w-full rounded-md flex items-center justify-center max-[1160px]:mt-0">
+          <img
+            src={pretasacion}
+            alt=""
+            className="w-full h-full object-cover"
+          />
         </div>
       </div>
 

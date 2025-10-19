@@ -1,6 +1,7 @@
 import React from "react";
 import TitleAndSubtitle from "../../components/titleandsubtitle/TitleAndSubtitle";
 import LeftAlignedParagraph from "../../components/LeftAlignedParagraph/LeftAlignedParagraph";
+import valorPropiedad from "../../assets/images/valor-propiedad.png";
 function PropertyValue() {
   return (
     <section className="h-full bg-white flex flex-row items-center justify-center gap-12 px-[10%] py-16 relative max-[1160px]:flex-col max-[1160px]:px-[20%] max-[1160px]:pb-60 max-[800px]:px-[5%] max-[700px]:pb-80 max-[400px]:pb-140">
@@ -9,7 +10,7 @@ function PropertyValue() {
         {/* Imagen cuadrada */}
         <div className="w-full aspect-square bg-gray-400 rounded-sm overflow-hidden flex justify-center items-center">
           <img
-            src="https://via.placeholder.com/300x200"
+            src={valorPropiedad}
             alt="Valor"
             className="object-cover w-full h-full"
           />

@@ -59,6 +59,11 @@
     height: 100%;
   }
 }
+@media (max-width: 650px) {
+  .heroSection {
+    height: 70vh;
+  }
+}
 @media (max-width: 500px) {
   .heroTitle {
     max-width: 90vw;
@@ -72,5 +77,14 @@
 @media (max-height: 600px) {
   .heroSection {
     height: 110vh;
+  }
+}
+@media (max-width: 360px) {
+  .heroTitle h1 {
+    font-size: 35px;
+  }
+
+  .heroTitle h2 {
+    font-size: 18px;
   }
 }

@@ -1,6 +1,7 @@
 import React from "react";
 import TitleAndSubtitle from "../../components/titleandsubtitle/TitleAndSubtitle";
 import LeftAlignedParagraph from "../../components/LeftAlignedParagraph/LeftAlignedParagraph";
+import "flowbite";
 
 function FAQSection() {
   return (
