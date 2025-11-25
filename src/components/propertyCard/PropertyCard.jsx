@@ -9,7 +9,7 @@ import { TbRulerMeasure2 } from "react-icons/tb";
 import { IoIosBed } from "react-icons/io";
 import { GiBathtub } from "react-icons/gi";
 
-function PropertyCard() {
+function PropertyCard({ propiedad }) {
   return (
     <div className="w-full max-w-[370px]  mx-auto bg-white border border-gray-200 rounded-lg shadow-s">
       {/* IMAGE */}
@@ -28,11 +28,11 @@ function PropertyCard() {
             <GoDotFill />
           </i>
           <h4 className="mb-0 text-xl tracking-tight text-black">
-            Alquiler - Departamento
+            {propiedad.operacion} - {propiedad.tipo}
           </h4>
         </div>
         <h5 className="mb-2 text-xl font-bold tracking-tight text-black">
-          Nombre propiedad
+          {propiedad.titulo}
         </h5>
         {/* FEATURES */}
         <div className="mb-6 mt-6 flex flex-col min-[300px]:flex-row justify-between">
@@ -44,7 +44,7 @@ function PropertyCard() {
               </i>
               <div className="leading-tight">
                 <p className=" font-bold max-[400px]:text-sm">
-                  120 m<sup>2</sup>
+                  {propiedad.supcubierta} m<sup>2</sup>
                 </p>
                 <p className="text-gray-600 max-[400px]:text-sm">Cubiertos</p>
               </div>
@@ -57,7 +57,9 @@ function PropertyCard() {
                 <IoIosBed />
               </i>
               <div className="leading-tight">
-                <p className=" font-bold max-[400px]:text-sm">2</p>
+                <p className=" font-bold max-[400px]:text-sm">
+                  {propiedad.ambientes}
+                </p>
                 <p className="text-gray-600 max-[400px]:text-sm">Ambientes</p>
               </div>
             </div>
@@ -69,7 +71,9 @@ function PropertyCard() {
                 <GiBathtub />
               </i>
               <div className="leading-tight">
-                <p className=" font-bold max-[400px]:text-sm">1</p>
+                <p className=" font-bold max-[400px]:text-sm">
+                  {propiedad.baños}
+                </p>
                 <p className="text-gray-600 max-[400px]:text-sm">Baños</p>
               </div>
             </div>
@@ -80,7 +84,7 @@ function PropertyCard() {
           <i className="mr-3 text-lg">
             <LuMapPinHouse />
           </i>
-          <p>Direccion de la propiedad</p>
+          <p>{propiedad.direccion}</p>
         </div>
         <div className="flex items-center">
           <SmallButton
@@ -89,7 +93,7 @@ function PropertyCard() {
             to="/info-propiedad"
           />
           <h5 className="text-3xl font-bold border-black border-l-2 pl-2 max-[400px]:text-2xl max-[300px]:text-xl">
-            500.000 AR$
+            {propiedad.precio} {propiedad.moneda}
           </h5>
         </div>
       </div>
