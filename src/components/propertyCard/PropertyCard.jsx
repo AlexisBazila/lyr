@@ -3,93 +3,102 @@ import "./propertyCard.css";
 import SmallButton from "../smallButton/SmallButton";
 import image from "../../assets/images/noimage.png";
 import sellExample from "../../assets/images/sellExample.jpg";
+
 import { GoDotFill } from "react-icons/go";
 import { LuMapPinHouse } from "react-icons/lu";
 import { TbRulerMeasure2 } from "react-icons/tb";
 import { IoIosBed } from "react-icons/io";
 import { GiBathtub } from "react-icons/gi";
 
-function PropertyCard() {
+function PropertyCard({
+  titulo,
+  precio,
+  direccion,
+  ambientes,
+  banios,
+  supcubierta,
+}) {
   return (
-    <div className="w-full max-w-[370px]  mx-auto bg-white border border-gray-200 rounded-lg shadow-s">
+    <div className="w-full max-w-[370px] mx-auto bg-white border border-gray-200 rounded-lg shadow-s">
       {/* IMAGE */}
       <a href="#">
         <img
-          className="rounded-t-lg w-full max-h-3/6"
-          src={sellExample}
-          alt=""
+          className="rounded-t-lg w-full max-h-3/6 object-cover"
+          src={sellExample || image}
+          alt={titulo}
         />
       </a>
+
       {/* CONTENT */}
       <div className="p-5">
         {/* TITLE */}
-        <div className="flex ">
+        <div className="flex">
           <i className="text-[#75f94c] text-3xl">
             <GoDotFill />
           </i>
-          <h4 className="mb-0 text-xl tracking-tight text-black">
-            Alquiler - Departamento
-          </h4>
+          <h4 className="mb-0 text-xl tracking-tight text-black">Propiedad</h4>
         </div>
+
         <h5 className="mb-2 text-xl font-bold tracking-tight text-black">
-          Nombre propiedad
+          {titulo}
         </h5>
+
         {/* FEATURES */}
         <div className="mb-6 mt-6 flex flex-col min-[300px]:flex-row justify-between">
-          {/* FEATURE 1 */}
-          <div>
-            <div className="flex">
-              <i className="text-[40px] text-red-600 max-[400px]:text-3xl">
-                <TbRulerMeasure2 />
-              </i>
-              <div className="leading-tight">
-                <p className=" font-bold max-[400px]:text-sm">
-                  120 m<sup>2</sup>
-                </p>
-                <p className="text-gray-600 max-[400px]:text-sm">Cubiertos</p>
-              </div>
+          {/* SUP CUBIERTA */}
+          <div className="flex">
+            <i className="text-[40px] text-red-600 max-[400px]:text-3xl">
+              <TbRulerMeasure2 />
+            </i>
+            <div className="leading-tight">
+              <p className="font-bold max-[400px]:text-sm">
+                {supcubierta} m<sup>2</sup>
+              </p>
+              <p className="text-gray-600 max-[400px]:text-sm">Cubiertos</p>
             </div>
           </div>
-          {/* FEATURE 2 */}
-          <div>
-            <div className="flex">
-              <i className="text-[40px] text-red-600 max-[400px]:text-3xl">
-                <IoIosBed />
-              </i>
-              <div className="leading-tight">
-                <p className=" font-bold max-[400px]:text-sm">2</p>
-                <p className="text-gray-600 max-[400px]:text-sm">Ambientes</p>
-              </div>
+
+          {/* AMBIENTES */}
+          <div className="flex">
+            <i className="text-[40px] text-red-600 max-[400px]:text-3xl">
+              <IoIosBed />
+            </i>
+            <div className="leading-tight">
+              <p className="font-bold max-[400px]:text-sm">{ambientes}</p>
+              <p className="text-gray-600 max-[400px]:text-sm">Ambientes</p>
             </div>
           </div>
-          {/* FEATURE 3 */}
-          <div>
-            <div className="flex">
-              <i className="text-[40px] text-red-600 max-[400px]:text-3xl">
-                <GiBathtub />
-              </i>
-              <div className="leading-tight">
-                <p className=" font-bold max-[400px]:text-sm">1</p>
-                <p className="text-gray-600 max-[400px]:text-sm">Baños</p>
-              </div>
+
+          {/* BAÑOS */}
+          <div className="flex">
+            <i className="text-[40px] text-red-600 max-[400px]:text-3xl">
+              <GiBathtub />
+            </i>
+            <div className="leading-tight">
+              <p className="font-bold max-[400px]:text-sm">{banios}</p>
+              <p className="text-gray-600 max-[400px]:text-sm">Baños</p>
             </div>
           </div>
         </div>
-        {/* PROPERTI LOCATION */}
+
+        {/* LOCATION */}
         <div className="flex items-center mb-3">
           <i className="mr-3 text-lg">
             <LuMapPinHouse />
           </i>
-          <p>Direccion de la propiedad</p>
+          <p>{direccion}</p>
         </div>
+
+        {/* PRICE & BUTTON */}
         <div className="flex items-center">
           <SmallButton
             caption="Ver"
             className="mr-6 px-8 py-3 font-bold"
             to="/info-propiedad"
           />
+
           <h5 className="text-3xl font-bold border-black border-l-2 pl-2 max-[400px]:text-2xl max-[300px]:text-xl">
-            500.000 AR$
+            {precio?.toLocaleString("es-AR")} AR$
           </h5>
         </div>
       </div>
