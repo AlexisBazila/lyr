@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { LuMapPin } from "react-icons/lu";
 import { BsBuildings } from "react-icons/bs";
 import { LiaKeySolid } from "react-icons/lia";
@@ -6,6 +6,7 @@ import { MdBedroomParent } from "react-icons/md";
 import { PiCurrencyCircleDollar } from "react-icons/pi";
 import { FiFilter } from "react-icons/fi";
 import "flyonui/flyonui.js";
+import { getTipos, getOperaciones } from "../../services/propiedades";
 
 function BigSearcher() {
   useEffect(() => {
@@ -13,6 +14,25 @@ function BigSearcher() {
       window.FlyonUI.init();
     }
   }, []);
+
+  const [tipos, setTipos] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const tipos = await getTipos();
+      setTipos(tipos);
+    };
+    fetchData();
+  }, []);
+
+  const [operaciones, setOperaciones] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const operaciones = await getOperaciones();
+      setOperaciones(operaciones);
+    };
+    fetchData();
+  }, []);
+
   return (
     <div className="flex justify-center">
       <div className="bg-white p-8 rounded-b-lg shadow-[0px_4px_4px_#00000080] max-[800px]:w-full">
@@ -40,11 +60,9 @@ function BigSearcher() {
             <BsBuildings className="absolute left-3 top-2.5 text-xl text-black" />
             <select className="w-full border border-black rounded-lg pl-10 pr-3 py-2 text-black focus:ring-1 focus:ring-black">
               <option>Tipo de propiedad</option>
-              <option>Casa</option>
-              <option>Departamento</option>
-              <option>Lote</option>
-              <option>Oficina</option>
-              <option>Local comercial</option>
+              {tipos.map((tipo) => (
+                <option key={tipo.id}>{tipo.tipo}</option>
+              ))}
             </select>
           </div>
 
@@ -53,8 +71,9 @@ function BigSearcher() {
             <LiaKeySolid className="absolute left-3 top-2.5 text-xl text-black" />
             <select className="w-full border border-black rounded-lg pl-10 pr-3 py-2 text-black focus:ring-1 focus:ring-black">
               <option>Operación</option>
-              <option>Venta</option>
-              <option>Alquiler</option>
+              {operaciones.map((operacion) => (
+                <option key={operacion.id}>{operacion.operacion}</option>
+              ))}
             </select>
           </div>
 

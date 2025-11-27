@@ -31,7 +31,7 @@ function Propiedades() {
         <div className="m-[5%]">
           <TitleAndSubtitle
             title={"PROPIEDADES ENCONTRADAS"}
-            subtitle={`(Filtros Aplicados) - ${propiedades.length} Resueltados `}
+            subtitle={`(Filtros Aplicados) - ${propiedades.length} Resultados `}
           />
         </div>
 
