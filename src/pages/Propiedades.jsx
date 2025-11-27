@@ -31,7 +31,7 @@ function Propiedades() {
         <div className="m-[5%]">
           <TitleAndSubtitle
             title={"PROPIEDADES ENCONTRADAS"}
-            subtitle={"(Filtros Aplicados) - ### Resueltados "}
+            subtitle={`(Filtros Aplicados) - ${propiedades.length} Resueltados `}
           />
         </div>
 
@@ -45,6 +45,10 @@ function Propiedades() {
               ambientes={prop.ambientes}
               banios={prop.banios}
               supcubierta={prop.supcubierta}
+              tipo={prop.tipo.tipo}
+              transaccion={prop.operacion.operacion}
+              moneda={prop.moneda.simbolo}
+              estado={prop.estado.estado}
             />
           ))}
         </div>

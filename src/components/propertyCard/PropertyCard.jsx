@@ -5,6 +5,7 @@ import image from "../../assets/images/noimage.png";
 import sellExample from "../../assets/images/sellExample.jpg";
 
 import { GoDotFill } from "react-icons/go";
+import { IoPauseCircle, IoEyeOffOutline } from "react-icons/io5";
 import { LuMapPinHouse } from "react-icons/lu";
 import { TbRulerMeasure2 } from "react-icons/tb";
 import { IoIosBed } from "react-icons/io";
@@ -17,7 +18,17 @@ function PropertyCard({
   ambientes,
   banios,
   supcubierta,
+  tipo,
+  transaccion,
+  moneda,
+  estado,
 }) {
+  const estadosConfig = {
+    Activo: { color: "#75f94c", icon: <GoDotFill /> },
+    Pausado: { color: "red", icon: <IoPauseCircle /> },
+    Oculto: { color: "orange", icon: <IoEyeOffOutline /> },
+  };
+  const config = estadosConfig[estado] || estadosConfig["Oculto"];
   return (
     <div className="w-full max-w-[370px] mx-auto bg-white border border-gray-200 rounded-lg shadow-s">
       {/* IMAGE */}
@@ -33,10 +44,12 @@ function PropertyCard({
       <div className="p-5">
         {/* TITLE */}
         <div className="flex">
-          <i className="text-[#75f94c] text-3xl">
-            <GoDotFill />
+          <i className="text-3xl" style={{ color: config.color }}>
+            {config.icon}
           </i>
-          <h4 className="mb-0 text-xl tracking-tight text-black">Propiedad</h4>
+          <h4 className="mb-0 text-xl tracking-tight text-black">
+            {tipo} - {transaccion}
+          </h4>
         </div>
 
         <h5 className="mb-2 text-xl font-bold tracking-tight text-black">
@@ -98,7 +111,7 @@ function PropertyCard({
           />
 
           <h5 className="text-3xl font-bold border-black border-l-2 pl-2 max-[400px]:text-2xl max-[300px]:text-xl">
-            {precio?.toLocaleString("es-AR")} AR$
+            {precio?.toLocaleString("es-AR")} {moneda}
           </h5>
         </div>
       </div>
