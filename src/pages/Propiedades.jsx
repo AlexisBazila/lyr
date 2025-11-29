@@ -1,7 +1,7 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "react-router-dom";
-import { getPropiedades } from "../services/strapi";
+import { fechPropiedades } from "../services/strapi";
 import HeroSection from "../layouts/heroSection/HeroSection";
 import BigSearcher from "../components/bigSearcher/BigSearcher";
 import TitleAndSubtitle from "../components/titleandsubtitle/TitleAndSubtitle";
@@ -18,7 +18,7 @@ function Propiedades() {
     isError,
   } = useQuery({
     queryKey: ["propiedades", filtros], // cache independiente por filtros!
-    queryFn: () => getPropiedades(filtros), //  acepta filtros dinámicos
+    queryFn: () => fechPropiedades(filtros), //  acepta filtros dinámicos
     keepPreviousData: true, // mantiene resultados previos mientras busca
   });
 

@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 import { LuMapPin } from "react-icons/lu";
 import { BsBuildings } from "react-icons/bs";
 import { LiaKeySolid } from "react-icons/lia";
@@ -7,8 +9,11 @@ import { PiCurrencyCircleDollar } from "react-icons/pi";
 import { FiFilter } from "react-icons/fi";
 import "flyonui/flyonui.js";
 import { getTipos, getOperaciones } from "../../services/propiedades";
+import { fechTipos, fechOperaciones, fechMonedas } from "../../services/strapi";
 
 function BigSearcher() {
+  const navigate = useNavigate();
+
   useEffect(() => {
     if (window.FlyonUI) {
       window.FlyonUI.init();
@@ -18,7 +23,7 @@ function BigSearcher() {
   const [tipos, setTipos] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
-      const tipos = await getTipos();
+      const tipos = await fechTipos();
       setTipos(tipos);
     };
     fetchData();
@@ -27,12 +32,21 @@ function BigSearcher() {
   const [operaciones, setOperaciones] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
-      const operaciones = await getOperaciones();
+      const operaciones = await fechOperaciones();
+      console.log(operaciones);
       setOperaciones(operaciones);
     };
     fetchData();
   }, []);
 
+  const [monedas, setMonedas] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const monedas = await fechMonedas();
+      setMonedas(monedas);
+    };
+    fetchData();
+  }, []);
   return (
     <div className="flex justify-center">
       <div className="bg-white p-8 rounded-b-lg shadow-[0px_4px_4px_#00000080] max-[800px]:w-full">
@@ -60,8 +74,10 @@ function BigSearcher() {
             <BsBuildings className="absolute left-3 top-2.5 text-xl text-black" />
             <select className="w-full border border-black rounded-lg pl-10 pr-3 py-2 text-black focus:ring-1 focus:ring-black">
               <option>Tipo de propiedad</option>
-              {tipos.map((tipo) => (
-                <option key={tipo.id}>{tipo.tipo}</option>
+              {tipos.map((t) => (
+                <option key={t.id} value={t.tipo}>
+                  {t.tipo}
+                </option>
               ))}
             </select>
           </div>
@@ -71,8 +87,10 @@ function BigSearcher() {
             <LiaKeySolid className="absolute left-3 top-2.5 text-xl text-black" />
             <select className="w-full border border-black rounded-lg pl-10 pr-3 py-2 text-black focus:ring-1 focus:ring-black">
               <option>Operación</option>
-              {operaciones.map((operacion) => (
-                <option key={operacion.id}>{operacion.operacion}</option>
+              {operaciones.map((t) => (
+                <option key={t.id} value={t.id}>
+                  {t.operacion}
+                </option>
               ))}
             </select>
           </div>
@@ -93,8 +111,11 @@ function BigSearcher() {
             <PiCurrencyCircleDollar className="absolute left-3 top-2.5 text-xl text-black" />
             <select className="w-full border border-black rounded-lg pl-10 pr-3 py-2 text-black focus:ring-1 focus:ring-black">
               <option>Moneda</option>
-              <option>ARS</option>
-              <option>USD</option>
+              {monedas.map((t) => (
+                <option key={t.id} value={t.id}>
+                  {t.simbolo}
+                </option>
+              ))}
             </select>
           </div>
 

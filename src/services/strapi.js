@@ -9,11 +9,11 @@ export const api = axios.create({
 
 // Helper para parsear respuesta Strapi
 export function normalizeCollectionResponse(resp) {
-  return resp?.data?.data ?? [];
+  return resp ?? [];
 }
 
 // Endpoints
-export const getPropiedades = async (filtros = {}) => {
+export const fechPropiedades = async (filtros = {}) => {
   try {
     const query = new URLSearchParams({ populate: "*" });
     Object.entries(filtros).forEach(([key, val]) => {
@@ -29,17 +29,21 @@ export const getPropiedades = async (filtros = {}) => {
   }
 };
 
-export const getTipos = async () => {
+export const fechTipos = async () => {
   const res = await api.get("/tipos");
-  return normalizeCollectionResponse(res);
+  return normalizeCollectionResponse(res.data.data);
 };
 
-export const getOperaciones = async () => {
+export const fechOperaciones = async () => {
   const res = await api.get("/operaciones");
-  return normalizeCollectionResponse(res);
+  console.log(res.data.data);
+
+  return normalizeCollectionResponse(res.data.data);
 };
 
-export const getMonedas = async () => {
+export const fechMonedas = async () => {
   const res = await api.get("/monedas");
-  return normalizeCollectionResponse(res);
+  console.log(res.data.data);
+
+  return normalizeCollectionResponse(res.data.data);
 };
