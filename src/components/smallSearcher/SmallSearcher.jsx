@@ -35,13 +35,13 @@ function SmallSearcher() {
             />{" "}
           </div>
           {/*SELECT*/}
-          <div class="relative  mb-6 mr-9 max-[1160px]:mr-3">
-            <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none text-2xl">
+          <div className="relative  mb-6 mr-9 max-[1160px]:mr-3">
+            <div className="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none text-2xl">
               <BsBuildings className="text-black" />
             </div>
             <select
               id="countries"
-              class="bg-white border border-black text-black text-1xl rounded-lg  block w-55 ps-12 p-2.5 placeholder-black focus:ring-1 focus:ring-black  max-[950px]:w-30 max-[650px]:w-full"
+              className="bg-white border border-black text-black text-1xl rounded-lg  block w-55 ps-12 p-2.5 placeholder-black focus:ring-1 focus:ring-black  max-[950px]:w-30 max-[650px]:w-full"
             >
               <option selected>Tipo de propiedad</option>
               <option value="casa">Casa</option>
@@ -53,13 +53,13 @@ function SmallSearcher() {
           </div>
           {/*SELECT*/}
           {/*SELECT*/}
-          <div class="relative mb-6 mr-9 max-[1160px]:mr-3">
-            <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none text-2xl">
+          <div className="relative mb-6 mr-9 max-[1160px]:mr-3">
+            <div className="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none text-2xl">
               <LiaKeySolid className="text-black" />
             </div>
             <select
               id="countries"
-              class="bg-white border border-black text-black text-1xl rounded-lg  block w-50 ps-12 p-2.5 placeholder-black focus:ring-1 focus:ring-black max-[950px]:w-30 max-[650px]:w-full"
+              className="bg-white border border-black text-black text-1xl rounded-lg  block w-50 ps-12 p-2.5 placeholder-black focus:ring-1 focus:ring-black max-[950px]:w-30 max-[650px]:w-full"
             >
               <option selected>Operación</option>
               <option value="venta">Venta</option>

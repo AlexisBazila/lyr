@@ -13,18 +13,33 @@ export function normalizeCollectionResponse(resp) {
 }
 
 // Endpoints
-export const getPropiedades = async (filters = {}) => {
-  const params = { populate: "*", ...filters };
-  const res = await api.get("/propiedades", { params });
-  return normalizeCollectionResponse(res);
+export const getPropiedades = async (filtros = {}) => {
+  try {
+    const query = new URLSearchParams({ populate: "*" });
+    Object.entries(filtros).forEach(([key, val]) => {
+      if (val !== "" && val !== null && val !== undefined) {
+        query.append(`filters[${key}][$eq]`, val);
+      }
+    });
+    const { data } = await axios.get(`${API_URL}/api/propiedades?${query}`);
+    return data.data;
+  } catch (error) {
+    console.error("Error al obtener propiedades:", error);
+    return [];
+  }
 };
 
-export const fetchTipos = async () => {
+export const getTipos = async () => {
   const res = await api.get("/tipos");
   return normalizeCollectionResponse(res);
 };
 
-export const fetchOperaciones = async () => {
+export const getOperaciones = async () => {
   const res = await api.get("/operaciones");
+  return normalizeCollectionResponse(res);
+};
+
+export const getMonedas = async () => {
+  const res = await api.get("/monedas");
   return normalizeCollectionResponse(res);
 };
