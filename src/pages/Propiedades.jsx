@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "react-router-dom";
 import { fechPropiedades } from "../services/strapi";
@@ -7,19 +7,35 @@ import BigSearcher from "../components/bigSearcher/BigSearcher";
 import TitleAndSubtitle from "../components/titleandsubtitle/TitleAndSubtitle";
 import PropertyCard from "../components/propertyCard/PropertyCard";
 
+function parseSearchToFilters(search) {
+  const params = new URLSearchParams(search);
+  const out = {};
+  for (const [k, v] of params.entries()) {
+    // convertimos números si parecen números (opcional)
+    // but keep as strings for ID filters is fine
+    out[k] = v;
+  }
+  return out;
+}
+
 function Propiedades() {
-  // 🔹 Detectamos si vienen filtros desde otra página (query params)
   const location = useLocation();
-  const filtros = location.state?.filtros || {}; // ← si no hay filtros, objeto vacío
+  // Leemos filtros desde location.search (ej: ?tipo=4&moneda=3)
+
+  const filtros = useMemo(
+    () => parseSearchToFilters(location.search),
+    [location.search]
+  );
 
   const {
     data: propiedades = [],
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["propiedades", filtros], // cache independiente por filtros!
-    queryFn: () => fechPropiedades(filtros), //  acepta filtros dinámicos
-    keepPreviousData: true, // mantiene resultados previos mientras busca
+    queryKey: ["propiedades", filtros], // cache por filtros
+    queryFn: () => fechPropiedades(filtros),
+    keepPreviousData: true,
+    staleTime: 1000 * 60 * 1, // 1 minuto (opcional)
   });
 
   if (isLoading)
@@ -43,12 +59,11 @@ function Propiedades() {
           <TitleAndSubtitle
             title="PROPIEDADES ENCONTRADAS"
             subtitle={`${
-              Object.keys(filtros).length > 0 ? "(Filtros Aplicados) - " : " "
-            }${propiedades.length} Resultados obtenidos`}
+              Object.keys(filtros).length > 0 ? "(Filtros Aplicados) - " : ""
+            }${propiedades.length} Resultados`}
           />
         </div>
 
-        {/* 🔹 Render Cards */}
         <div className="flex gap-7 flex-wrap px-[5%] mb-20">
           {propiedades.map((prop) => (
             <PropertyCard

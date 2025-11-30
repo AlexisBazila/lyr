@@ -14,6 +14,31 @@ import { fechTipos, fechOperaciones, fechMonedas } from "../../services/strapi";
 function BigSearcher() {
   const navigate = useNavigate();
 
+  // Estado para filtros del formulario
+  const [filters, setFilters] = useState({
+    ubicacion: "",
+    tipo: "",
+    operacion: "",
+    ambientes: "",
+    moneda: "",
+    min: "",
+    max: "",
+  });
+
+  // 📍 Al hacer click en BUSCAR -> redirige a Propiedades con filtros en URL
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // build query only with non-empty values
+    const qs = new URLSearchParams();
+    Object.entries(filters).forEach(([k, v]) => {
+      if (v !== "" && v !== null && v !== undefined) qs.set(k, v);
+    });
+
+    const queryString = qs.toString();
+    navigate(`/propiedades${queryString ? `?${queryString}` : ""}`);
+  };
+
   useEffect(() => {
     if (window.FlyonUI) {
       window.FlyonUI.init();
@@ -33,7 +58,6 @@ function BigSearcher() {
   useEffect(() => {
     const fetchData = async () => {
       const operaciones = await fechOperaciones();
-      console.log(operaciones);
       setOperaciones(operaciones);
     };
     fetchData();
@@ -56,6 +80,7 @@ function BigSearcher() {
 
         <form
           action=""
+          onSubmit={handleSubmit}
           className="grid grid-cols-6   gap-3 items-center max-[800px]:grid-cols-1"
         >
           {/* <div className="grid grid-cols-1 md:grid-cols-5 lg:grid-cols-8 gap-3 items-center"></div> */}
@@ -65,6 +90,10 @@ function BigSearcher() {
             <input
               type="text"
               placeholder="Ubicación"
+              value={filters.ubicacion}
+              onChange={(e) =>
+                setFilters({ ...filters, ubicacion: e.target.value })
+              }
               className="w-full border border-black rounded-lg pl-10 pr-3 py-2 placeholder-black focus:ring-1 focus:ring-black"
             />
           </div>
@@ -72,10 +101,14 @@ function BigSearcher() {
           {/* Tipo de propiedad */}
           <div className="relative col-span-2 max-[550px]:col-span-1">
             <BsBuildings className="absolute left-3 top-2.5 text-xl text-black" />
-            <select className="w-full border border-black rounded-lg pl-10 pr-3 py-2 text-black focus:ring-1 focus:ring-black">
-              <option>Tipo de propiedad</option>
+            <select
+              className="w-full border border-black rounded-lg pl-10 pr-3 py-2 text-black focus:ring-1 focus:ring-black"
+              value={filters.tipo}
+              onChange={(e) => setFilters({ ...filters, tipo: e.target.value })}
+            >
+              <option value="">Tipo de propiedad</option>
               {tipos.map((t) => (
-                <option key={t.id} value={t.tipo}>
+                <option key={t.id} value={t.id}>
                   {t.tipo}
                 </option>
               ))}
@@ -85,8 +118,14 @@ function BigSearcher() {
           {/* Operación */}
           <div className="relative col-span-1">
             <LiaKeySolid className="absolute left-3 top-2.5 text-xl text-black" />
-            <select className="w-full border border-black rounded-lg pl-10 pr-3 py-2 text-black focus:ring-1 focus:ring-black">
-              <option>Operación</option>
+            <select
+              className="w-full border border-black rounded-lg pl-10 pr-3 py-2 text-black focus:ring-1 focus:ring-black"
+              value={filters.operacion}
+              onChange={(e) =>
+                setFilters({ ...filters, operacion: e.target.value })
+              }
+            >
+              <option value="">Operación</option>
               {operaciones.map((t) => (
                 <option key={t.id} value={t.id}>
                   {t.operacion}
@@ -98,19 +137,31 @@ function BigSearcher() {
           {/* Ambientes */}
           <div className="relative col-span-1">
             <MdBedroomParent className="absolute left-3 top-2.5 text-xl text-black" />
-            <select className="w-full border border-black rounded-lg pl-10 pr-3 py-2 text-black focus:ring-1 focus:ring-black">
-              <option>Ambientes</option>
-              <option>1</option>
-              <option>2</option>
-              <option>3+</option>
+            <select
+              className="w-full border border-black rounded-lg pl-10 pr-3 py-2 text-black focus:ring-1 focus:ring-black"
+              value={filters.ambientes}
+              onChange={(e) =>
+                setFilters({ ...filters, ambientes: e.target.value })
+              }
+            >
+              <option value="">Ambientes</option>
+              <option value={1}>1</option>
+              <option value={2}>2</option>
+              <option value={3}>3+</option>
             </select>
           </div>
 
           {/* Moneda */}
           <div className="relative">
             <PiCurrencyCircleDollar className="absolute left-3 top-2.5 text-xl text-black" />
-            <select className="w-full border border-black rounded-lg pl-10 pr-3 py-2 text-black focus:ring-1 focus:ring-black">
-              <option>Moneda</option>
+            <select
+              className="w-full border border-black rounded-lg pl-10 pr-3 py-2 text-black focus:ring-1 focus:ring-black"
+              value={filters.moneda}
+              onChange={(e) =>
+                setFilters({ ...filters, moneda: e.target.value })
+              }
+            >
+              <option value="">Moneda</option>
               {monedas.map((t) => (
                 <option key={t.id} value={t.id}>
                   {t.simbolo}
@@ -124,6 +175,8 @@ function BigSearcher() {
             <input
               type="text"
               placeholder="Min."
+              value={filters.min}
+              onChange={(e) => setFilters({ ...filters, min: e.target.value })}
               className="w-full border border-black rounded-lg pl-3 pr-8 py-2 placeholder-black focus:ring-1 focus:ring-black"
             />
             <span className="absolute right-3 top-2.5 text-black font-bold">
@@ -136,6 +189,8 @@ function BigSearcher() {
             <input
               type="text"
               placeholder="Max."
+              value={filters.max}
+              onChange={(e) => setFilters({ ...filters, max: e.target.value })}
               className="w-full border border-black rounded-lg pl-3 pr-8 py-2 placeholder-black focus:ring-1 focus:ring-black"
             />
             <span className="absolute right-3 top-2.5 text-black font-bold">
