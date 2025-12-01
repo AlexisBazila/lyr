@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { LuMapPin } from "react-icons/lu";
 import { BsBuildings } from "react-icons/bs";
 import { LiaKeySolid } from "react-icons/lia";
@@ -14,15 +14,26 @@ import { fechTipos, fechOperaciones, fechMonedas } from "../../services/strapi";
 function BigSearcher() {
   const navigate = useNavigate();
 
+  const [searchParams, setSearchParams] = useSearchParams();
+  // función genérica para actualizar filtros
+  function updateFilter(key, value) {
+    const newParams = new URLSearchParams(searchParams);
+
+    if (!value) newParams.delete(key); // si está vacío -> lo borro
+    else newParams.set(key, value); // sino -> lo guardo
+
+    setSearchParams(newParams); // actualiza URL → ReactQuery refetch
+  }
+
   // Estado para filtros del formulario
   const [filters, setFilters] = useState({
-    ubicacion: "",
-    tipo: "",
-    operacion: "",
-    ambientes: "",
-    moneda: "",
-    min: null,
-    max: null,
+    ubicacion: searchParams.get("ubicacion") || null,
+    tipo: searchParams.get("tipo") || null,
+    operacion: searchParams.get("operacion") || null,
+    ambientes: searchParams.get("ambientes") || null,
+    moneda: searchParams.get("moneda") || null,
+    min: searchParams.get("min") || null,
+    max: searchParams.get("max") || null,
   });
 
   // 📍 Al hacer click en BUSCAR -> redirige a Propiedades con filtros en URL
