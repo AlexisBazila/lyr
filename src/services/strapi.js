@@ -17,32 +17,37 @@ export const fechPropiedades = async (filtros = {}) => {
   try {
     const params = new URLSearchParams({ populate: "*" });
 
-    // Campos que son relaciones y deben filtrar por id en Strapi
-    const relationFields = new Set([
-      "moneda",
-      "tipo",
-      "operacion",
-      "localidad",
-    ]);
+    // relaciones que se filtran por ID
+    const relationFields = new Set(["moneda", "tipo", "operacion", "localidad"]);
 
     Object.entries(filtros).forEach(([key, val]) => {
-      if (val === "" || val === null || val === undefined) return;
+      if (!val) return; // ignora vacíos
 
-      // si es un relationship simple (moneda, tipo, ...) lo convertimos a [rel][id]
+      // --- FILTROS POR RELACIONES ---
       if (relationFields.has(key)) {
         params.append(`filters[${key}][id][$eq]`, val);
         return;
       }
 
-      // si el key viene en formato "campo.subcampo" lo convertimos a filters[campo][subcampo][$eq]
+      // --- FILTROS DE PRECIO (min / max) ---
+      if (key === "min") {
+        params.append("filters[precio][$gte]", val);
+        return;
+      }
+      if (key === "max") {
+        params.append("filters[precio][$lte]", val);
+        return;
+      }
+
+      // --- FILTROS NORMALES (campo = valor) ---
       const parts = key.split(".");
       if (parts.length === 1) {
         params.append(`filters[${key}][$eq]`, val);
       } else {
-        // construimos filters[a][b][c][$eq]
-        let prefix = `filters[${parts[0]}]`;
-        for (let i = 1; i < parts.length; i++) prefix += `[${parts[i]}]`;
-        params.append(`${prefix}[$eq]`, val);
+        // ej: operacion.tipo → filters[operacion][tipo][$eq]
+        let base = `filters[${parts[0]}]`;
+        for (let i = 1; i < parts.length; i++) base += `[${parts[i]}]`;
+        params.append(`${base}[$eq]`, val);
       }
     });
 
@@ -53,7 +58,6 @@ export const fechPropiedades = async (filtros = {}) => {
     return [];
   }
 };
-
 export const fechTipos = async () => {
   const res = await api.get("/tipos");
   return normalizeCollectionResponse(res.data.data);

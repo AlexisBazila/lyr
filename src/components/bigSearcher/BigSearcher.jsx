@@ -21,8 +21,8 @@ function BigSearcher() {
     operacion: "",
     ambientes: "",
     moneda: "",
-    min: "",
-    max: "",
+    min: null,
+    max: null,
   });
 
   // 📍 Al hacer click en BUSCAR -> redirige a Propiedades con filtros en URL
@@ -173,7 +173,7 @@ function BigSearcher() {
           {/* Precio mínimo */}
           <div className="relative">
             <input
-              type="text"
+              type="number"
               placeholder="Min."
               value={filters.min}
               onChange={(e) => setFilters({ ...filters, min: e.target.value })}
@@ -187,7 +187,7 @@ function BigSearcher() {
           {/* Precio máximo */}
           <div className="relative">
             <input
-              type="text"
+              type="number"
               placeholder="Max."
               value={filters.max}
               onChange={(e) => setFilters({ ...filters, max: e.target.value })}
