@@ -17,47 +17,54 @@ export const fechPropiedades = async (filtros = {}) => {
   try {
     const params = new URLSearchParams({ populate: "*" });
 
-    // relaciones que se filtran por ID
     const relationFields = new Set(["moneda", "tipo", "operacion", "localidad"]);
 
-    Object.entries(filtros).forEach(([key, val]) => {
-      if (!val) return; // ignora vacíos
+    // ------------------------------
+    // Ubicacion
+    // ------------------------------
+    const orFilters = [];
 
-      // --- FILTROS POR RELACIONES ---
+    if (filtros.ubicacion?.trim()) {
+      const q = filtros.ubicacion.trim();
+
+      orFilters.push(`filters[$or][0][direccion][$containsi]=${q}`);
+      orFilters.push(`filters[$or][1][localidad][localidad][$containsi]=${q}`);
+      orFilters.push(`filters[$or][2][localidad][provincia][provincia][$containsi]=${q}`);
+    }
+
+    // ------------------------------
+    // Otros Filtros
+    // ------------------------------
+    Object.entries(filtros).forEach(([key, val]) => {
+      if (!val || key === "ubicacion") return;
+
       if (relationFields.has(key)) {
         params.append(`filters[${key}][id][$eq]`, val);
         return;
       }
 
-      // --- FILTROS DE PRECIO (min / max) ---
-      if (key === "min") {
-        params.append("filters[precio][$gte]", val);
-        return;
-      }
-      if (key === "max") {
-        params.append("filters[precio][$lte]", val);
-        return;
-      }
+      if (key === "min") return params.append("filters[precio][$gte]", val);
+      if (key === "max") return params.append("filters[precio][$lte]", val);
 
-      // --- FILTROS NORMALES (campo = valor) ---
-      const parts = key.split(".");
-      if (parts.length === 1) {
-        params.append(`filters[${key}][$eq]`, val);
-      } else {
-        // ej: operacion.tipo → filters[operacion][tipo][$eq]
-        let base = `filters[${parts[0]}]`;
-        for (let i = 1; i < parts.length; i++) base += `[${parts[i]}]`;
-        params.append(`${base}[$eq]`, val);
-      }
+      params.append(`filters[${key}][$eq]`, val);
     });
+
+    if (orFilters.length > 0) {
+      orFilters.forEach(f => {
+        const [k,v] = f.split("=");
+        params.append(k, v);
+      });
+    }
 
     const { data } = await api.get(`/propiedades?${params.toString()}`);
     return data.data ?? [];
-  } catch (error) {
-    console.error("Error al obtener propiedades:", error);
+
+  } catch (err) {
+    console.error("Error propiedades:", err);
     return [];
   }
 };
+
 export const fechTipos = async () => {
   const res = await api.get("/tipos");
   return normalizeCollectionResponse(res.data.data);
