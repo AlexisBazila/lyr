@@ -1,15 +1,21 @@
+// Importacion de funciones React
 import React, { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate, useSearchParams } from "react-router-dom";
+
+// Importaicion de funciones del proyecto
+import { fechTipos, fechOperaciones, fechMonedas } from "../../services/strapi";
+
+// Iconos
 import { LuMapPin } from "react-icons/lu";
 import { BsBuildings } from "react-icons/bs";
 import { LiaKeySolid } from "react-icons/lia";
 import { MdBedroomParent } from "react-icons/md";
 import { PiCurrencyCircleDollar } from "react-icons/pi";
 import { FiFilter } from "react-icons/fi";
+
+// Componentes
 import "flyonui/flyonui.js";
-import { getTipos, getOperaciones } from "../../services/propiedades";
-import { fechTipos, fechOperaciones, fechMonedas } from "../../services/strapi";
 
 function BigSearcher() {
   const navigate = useNavigate();
