@@ -57,6 +57,7 @@ export const fechPropiedades = async (filtros = {}) => {
     }
 
     const { data } = await api.get(`/propiedades?${params.toString()}`);
+    console.log(data)
     return data.data ?? [];
 
   } catch (err) {

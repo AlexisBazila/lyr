@@ -68,6 +68,7 @@ function Propiedades() {
           {propiedades.map((prop) => (
             <PropertyCard
               key={prop.id}
+              id={prop.id}
               titulo={prop.titulo}
               precio={prop.precio}
               direccion={prop.direccion}
@@ -78,6 +79,7 @@ function Propiedades() {
               transaccion={prop.operacion?.operacion}
               moneda={prop.moneda?.simbolo}
               estado={prop.estado?.estado}
+              miniatura={prop.miniatura}
             />
           ))}
         </div>

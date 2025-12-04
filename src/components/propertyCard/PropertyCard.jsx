@@ -12,6 +12,7 @@ import { IoIosBed } from "react-icons/io";
 import { GiBathtub } from "react-icons/gi";
 
 function PropertyCard({
+  id,
   titulo,
   precio,
   direccion,
@@ -22,7 +23,13 @@ function PropertyCard({
   transaccion,
   moneda,
   estado,
+  miniatura,
 }) {
+  // Si existe miniatura, arma la URL completa
+  const imageUrl = miniatura?.url
+    ? `${import.meta.env.VITE_STRAPI_URL}${miniatura.url}`
+    : "/fallback.jpg"; // opcional
+
   const estadosConfig = {
     Activo: { color: "#75f94c", icon: <GoDotFill /> },
     Pausado: { color: "red", icon: <IoPauseCircle /> },
@@ -30,12 +37,12 @@ function PropertyCard({
   };
   const config = estadosConfig[estado] || estadosConfig["Oculto"];
   return (
-    <div className="w-full max-w-[370px] mx-auto bg-white border border-gray-200 rounded-lg shadow-s">
+    <div className="w-full max-w-[370px] mx-auto bg-white border border-gray-200 rounded-lg shadow-s max-h-[600px]">
       {/* IMAGE */}
       <a href="#">
         <img
           className="rounded-t-lg w-full max-h-3/6 object-cover"
-          src={sellExample || image}
+          src={imageUrl}
           alt={titulo}
         />
       </a>
@@ -107,7 +114,7 @@ function PropertyCard({
           <SmallButton
             caption="Ver"
             className="mr-6 px-8 py-3 font-bold"
-            to="/info-propiedad"
+            to={`/info-propiedad/${id}`}
           />
 
           <h5 className="text-3xl font-bold border-black border-l-2 pl-2 max-[400px]:text-2xl max-[300px]:text-xl">
