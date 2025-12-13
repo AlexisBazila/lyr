@@ -17,7 +17,12 @@ export const fechPropiedades = async (filtros = {}) => {
   try {
     const params = new URLSearchParams({ populate: "*" });
 
-    const relationFields = new Set(["moneda", "tipo", "operacion", "localidad"]);
+    const relationFields = new Set([
+      "moneda",
+      "tipo",
+      "operacion",
+      "localidad",
+    ]);
 
     // ------------------------------
     // Ubicacion
@@ -29,7 +34,9 @@ export const fechPropiedades = async (filtros = {}) => {
 
       orFilters.push(`filters[$or][0][direccion][$containsi]=${q}`);
       orFilters.push(`filters[$or][1][localidad][localidad][$containsi]=${q}`);
-      orFilters.push(`filters[$or][2][localidad][provincia][provincia][$containsi]=${q}`);
+      orFilters.push(
+        `filters[$or][2][localidad][provincia][provincia][$containsi]=${q}`
+      );
     }
 
     // ------------------------------
@@ -50,16 +57,15 @@ export const fechPropiedades = async (filtros = {}) => {
     });
 
     if (orFilters.length > 0) {
-      orFilters.forEach(f => {
-        const [k,v] = f.split("=");
+      orFilters.forEach((f) => {
+        const [k, v] = f.split("=");
         params.append(k, v);
       });
     }
 
     const { data } = await api.get(`/propiedades?${params.toString()}`);
-    console.log(data)
+    console.log(data);
     return data.data ?? [];
-
   } catch (err) {
     console.error("Error propiedades:", err);
     return [];
@@ -86,4 +92,10 @@ export const fechOperaciones = async () => {
 export const fechMonedas = async () => {
   const res = await api.get("/monedas");
   return normalizeCollectionResponse(res.data.data);
+};
+
+export const fechGaleria = async (id) => {
+  if (!id) return null;
+  const res = await api.get(`/galerias/${id}?populate=foto`);
+  return res.data.data;
 };

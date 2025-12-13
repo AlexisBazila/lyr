@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { fetchPropiedad } from "../services/strapi";
+import { fechGaleria, fetchPropiedad } from "../services/strapi";
 import HeroSection from "../layouts/heroSection/HeroSection";
 import PropertyTitleAndSubtitle from "../components/propertyTitleandsubtitle/PropertyTitleAndSubtitle";
 import PropertyGalerySection from "../layouts/PropertyGalerySection/PropertyGalerySection";
@@ -41,9 +41,9 @@ function InfoPropiedades() {
           />
         </section>
         <div className="px-[5%]">
-          <PropertyGalerySection />
-          <PropertyInfoSection />
-          <PropertyExtraInfoSection />
+          <PropertyGalerySection galeriaId={propiedad.galeria.documentId} />
+          <PropertyInfoSection propiedad={propiedad} />
+          <PropertyExtraInfoSection descripcion={propiedad.descripcion} />
           <PropertyMapSection />
         </div>
       </div>
