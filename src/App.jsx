@@ -14,16 +14,19 @@ import Nosotros from "./pages/Nosotros";
 import Contacto from "./pages/Contacto";
 import Tasaciones from "./pages/Tasaciones";
 import Propiedades from "./pages/Propiedades";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   const [count, setCount] = useState(0);
 
   return (
     <Router>
+      <ScrollToTop />
       <NavBar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/info-propiedad" element={<InfoPropiedades />} />
+        {/* <Route path="/info-propiedad" element={<InfoPropiedades />} /> */}
+        <Route path="/info-propiedad/:id" element={<InfoPropiedades />} />
         <Route path="/nosotros" element={<Nosotros />} />
         <Route path="/contacto" element={<Contacto />} />
         <Route path="/tasaciones" element={<Tasaciones />} />

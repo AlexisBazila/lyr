@@ -66,6 +66,13 @@ export const fechPropiedades = async (filtros = {}) => {
   }
 };
 
+// Fech para obtencion de producto individual para la info de la propiedad
+export const fetchPropiedad = async (id) => {
+  if (!id) return null;
+  const { data } = await api.get(`/propiedades/${id}?populate=*`);
+  return data.data ?? null;
+};
+
 export const fechTipos = async () => {
   const res = await api.get("/tipos");
   return normalizeCollectionResponse(res.data.data);

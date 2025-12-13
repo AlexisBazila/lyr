@@ -68,7 +68,7 @@ function Propiedades() {
           {propiedades.map((prop) => (
             <PropertyCard
               key={prop.id}
-              id={prop.id}
+              id={prop.documentId}
               titulo={prop.titulo}
               precio={prop.precio}
               direccion={prop.direccion}

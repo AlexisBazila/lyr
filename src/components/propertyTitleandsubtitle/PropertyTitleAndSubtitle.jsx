@@ -4,14 +4,13 @@ import { GoDotFill } from "react-icons/go";
 import { LuMapPinHouse } from "react-icons/lu";
 import { RxBorderSolid } from "react-icons/rx";
 
-function PropertyTitleAndSubtitle({ title, subtitle }) {
+function PropertyTitleAndSubtitle({ title, subtitle, tipo, operacion }) {
   return (
     <div className="m-[5px] text-black">
       {/* Breadcrumb o ruta */}
       <div>
         <p className="text-sm text-gray-600 mb-3">
-          Propiedades &gt; Departamentos &gt; Alquiler &gt;{" "}
-          <strong>{title}</strong>
+          Propiedades &gt; {tipo} &gt; {operacion} &gt; <strong>{title}</strong>
         </p>
       </div>
 
@@ -25,7 +24,7 @@ function PropertyTitleAndSubtitle({ title, subtitle }) {
           <i className="text-[#75f94c] text-3xl">
             <GoDotFill />
           </i>
-          <p className="text-xl font-[600] ml-1">Alquiler</p>
+          <p className="text-xl font-[600] ml-1">{operacion}</p>
         </div>
       </div>
 
