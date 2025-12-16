@@ -31,17 +31,19 @@ function InfoPropiedades() {
   return (
     <>
       <div className="relative">
-        <HeroSection />
+        <HeroSection title={""} subtitle={""} className="h-[60vh]" />
         <section className="px-[5%] py-[2%]">
           <PropertyTitleAndSubtitle
             title={propiedad.titulo}
             subtitle={propiedad.direccion}
-            tipo={propiedad.tipo.tipo}
-            operacion={propiedad.operacion.operacion}
+            tipo={propiedad.tipo}
+            operacion={propiedad.operacion}
           />
         </section>
         <div className="px-[5%]">
-          <PropertyGalerySection galeriaId={propiedad.galeria.documentId} />
+          <PropertyGalerySection
+            galeriaId={propiedad.galeria?.documentId ?? null}
+          />
           <PropertyInfoSection propiedad={propiedad} />
           <PropertyExtraInfoSection descripcion={propiedad.descripcion} />
           <PropertyMapSection />

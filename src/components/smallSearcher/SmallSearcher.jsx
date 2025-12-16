@@ -46,7 +46,6 @@ function SmallSearcher() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // build query only with non-empty values
     const qs = new URLSearchParams();
     Object.entries(filters).forEach(([k, v]) => {
       if (v !== "" && v !== null && v !== undefined) qs.set(k, v);

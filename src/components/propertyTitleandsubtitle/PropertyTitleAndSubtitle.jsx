@@ -1,30 +1,43 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 import { GoDotFill } from "react-icons/go";
 import { LuMapPinHouse } from "react-icons/lu";
-import { RxBorderSolid } from "react-icons/rx";
 
 function PropertyTitleAndSubtitle({ title, subtitle, tipo, operacion }) {
   return (
     <div className="m-[5px] text-black">
-      {/* Breadcrumb o ruta */}
-      <div>
-        <p className="text-sm text-gray-600 mb-3">
-          Propiedades &gt; {tipo} &gt; {operacion} &gt; <strong>{title}</strong>
-        </p>
-      </div>
+      <p className="text-sm text-gray-600 mb-3">
+        <Link to="/propiedades" className="hover:underline">
+          Propiedades
+        </Link>
+        {" > "}
+        <Link
+          to={`/propiedades?tipo=${tipo.id}`}
+          className="hover:underline font-medium"
+        >
+          {tipo.tipo}
+        </Link>
+        {" > "}
+        <Link
+          to={`/propiedades?operacion=${operacion.id}`}
+          className="hover:underline font-medium"
+        >
+          {operacion.operacion}
+        </Link>
+        {" > "}
+        <strong>{title}</strong>
+      </p>
 
-      {/* Título + tipo de operación */}
+      {/* Título */}
       <div className="flex flex-wrap items-center text-[36px] uppercase max-[1500px]:text-[26px] max-[500px]:text-lg">
         <div className="h-[1px] w-[35px] bg-black mr-[7px]" />
-        <h2 className="truncate whitespace-nowrap overflow-hidden text-ellipsis max-w-[65%]">
-          {title}
-        </h2>
+        <h2 className="truncate max-w-[65%]">{title}</h2>
+
         <div className="flex items-center ml-[1%]">
           <i className="text-[#75f94c] text-3xl">
             <GoDotFill />
           </i>
-          <p className="text-xl font-[600] ml-1">{operacion}</p>
+          <p className="text-xl font-[600] ml-1">{operacion.operacion}</p>
         </div>
       </div>
 
