@@ -24,7 +24,6 @@ function InfoPropiedades() {
   if (!data)
     return <p className="p-10 text-xl">No se encontró la propiedad.</p>;
 
-  // 📌 Campos normalizados (Strapi devuelve data.attributes)
   const propiedad = data;
   console.log(propiedad);
 
@@ -46,7 +45,7 @@ function InfoPropiedades() {
           />
           <PropertyInfoSection propiedad={propiedad} />
           <PropertyExtraInfoSection descripcion={propiedad.descripcion} />
-          <PropertyMapSection />
+          <PropertyMapSection coordenadas={propiedad.coordenadas} />
         </div>
       </div>
     </>
