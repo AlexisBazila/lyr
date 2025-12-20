@@ -1,12 +1,84 @@
-import React from "react";
+import React, { useRef, useState } from "react";
+import { createMensaje } from "../../services/strapi";
 
 import { FaWhatsapp, FaMapMarkerAlt, FaPhone } from "react-icons/fa";
 import TitleAndSubtitle from "../../components/titleandsubtitle/TitleAndSubtitle";
 import LeftAlignedParagraph from "../../components/LeftAlignedParagraph/LeftAlignedParagraph";
 
 function ContactSection() {
+  const [form, setForm] = useState({
+    nombre: "",
+    email: "",
+    telefono: "",
+    interes: "",
+    mensaje: "",
+  });
+
+  const [status, setStatus] = useState({
+    loading: false,
+    success: false,
+    error: false,
+    message: "",
+  });
+
+  const messageRef = useRef(null);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    setStatus({
+      loading: true,
+      success: false,
+      error: false,
+      message: "",
+    });
+
+    try {
+      await createMensaje({
+        ...form,
+        origen: "contacto",
+      });
+
+      setStatus({
+        loading: false,
+        success: true,
+        error: false,
+        message:
+          "Mensaje enviado correctamente. Nos pondremos en contacto a la brevedad.",
+      });
+
+      setForm({
+        nombre: "",
+        email: "",
+        telefono: "",
+        interes: "",
+        mensaje: "",
+      });
+    } catch (err) {
+      setStatus({
+        loading: false,
+        success: false,
+        error: true,
+        message: "Ocurrió un error al enviar el mensaje. Intente nuevamente.",
+      });
+    }
+
+    // Scroll al mensaje
+    setTimeout(() => {
+      messageRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }, 100);
+  };
+
   return (
-    <section className="grid grid-cols-[1.2fr_1fr] gap-10 px-[10%] pt-5 pb-16  max-[1160px]:grid-cols-1 max-[1160px]:px-[5%]">
+    <section className="grid grid-cols-[1.2fr_1fr] gap-10 px-[10%] pt-5 pb-16 max-[1160px]:grid-cols-1 max-[1160px]:px-[5%]">
       {/* --- FORMULARIO --- */}
       <div>
         <TitleAndSubtitle
@@ -15,24 +87,46 @@ function ContactSection() {
         />
         <LeftAlignedParagraph
           paragraphs={[
-            "Completá el formulario y nuestro equipo se pondrá en contacto contigo a la brevedad. Estamos para ayudarte a resolver tus dudas o coordinar una visita.",
+            "Completá el formulario y nuestro equipo se pondrá en contacto contigo a la brevedad.",
           ]}
         />
 
-        <form className="space-y-6">
+        {/* MENSAJE ESTADO */}
+        {(status.success || status.error) && (
+          <div
+            ref={messageRef}
+            className={`mb-6 p-4 rounded-sm text-sm ${
+              status.success
+                ? "bg-green-100 text-green-800 border border-green-300"
+                : "bg-red-100 text-red-800 border border-red-300"
+            }`}
+          >
+            {status.message}
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-2 gap-6 max-[640px]:grid-cols-1">
             <div>
               <label className="block text-sm mb-1">Nombre</label>
               <input
                 type="text"
-                className="w-full border-0 border-b-2  focus:ring-0  border-gray-400 focus:border-black outline-none pb-1"
+                name="nombre"
+                value={form.nombre}
+                onChange={handleChange}
+                required
+                className="w-full border-0 border-b-2 border-gray-400 focus:border-black outline-none pb-1"
               />
             </div>
             <div>
               <label className="block text-sm mb-1">Dirección de email</label>
               <input
                 type="email"
-                className="w-full border-0 border-b-2  focus:ring-0 border-gray-400 focus:border-black outline-none pb-1"
+                name="email"
+                value={form.email}
+                onChange={handleChange}
+                required
+                className="w-full border-0 border-b-2 border-gray-400 focus:border-black outline-none pb-1"
               />
             </div>
           </div>
@@ -40,7 +134,12 @@ function ContactSection() {
           <div className="grid grid-cols-2 gap-6 max-[640px]:grid-cols-1">
             <div>
               <label className="block text-sm mb-1">Interesado en:</label>
-              <select className="w-full border-0 border-b-2  focus:ring-0 border-gray-400 focus:border-black outline-none pb-1 bg-transparent">
+              <select
+                name="interes"
+                value={form.interes}
+                onChange={handleChange}
+                className="w-full border-0 border-b-2 border-gray-400 focus:border-black outline-none pb-1 bg-transparent"
+              >
                 <option value="">Seleccione una opción</option>
                 <option value="venta">Compra o venta</option>
                 <option value="tasacion">Tasación</option>
@@ -51,7 +150,10 @@ function ContactSection() {
               <label className="block text-sm mb-1">Teléfono</label>
               <input
                 type="tel"
-                className="w-full border-0 border-b-2  focus:ring-0 border-gray-400 focus:border-black outline-none pb-1"
+                name="telefono"
+                value={form.telefono}
+                onChange={handleChange}
+                className="w-full border-0 border-b-2 border-gray-400 focus:border-black outline-none pb-1"
               />
             </div>
           </div>
@@ -59,16 +161,25 @@ function ContactSection() {
           <div>
             <label className="block text-sm mb-1">Mensaje:</label>
             <textarea
+              name="mensaje"
+              value={form.mensaje}
+              onChange={handleChange}
               rows="3"
-              className="w-full border-0 border-b-2  focus:ring-0 border-gray-400 focus:border-black outline-none resize-none pb-1"
-            ></textarea>
+              required
+              className="w-full border-0 border-b-2 border-gray-400 focus:border-black outline-none resize-none pb-1"
+            />
           </div>
 
           <button
             type="submit"
-            className="bg-black text-white px-8 py-2 mt-2 rounded-sm hover:bg-gray-800 transition"
+            disabled={status.loading}
+            className={`px-8 py-2 mt-2 rounded-sm transition ${
+              status.loading
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-black text-white hover:bg-gray-800"
+            }`}
           >
-            Enviar
+            {status.loading ? "Enviando..." : "Enviar"}
           </button>
         </form>
       </div>
@@ -79,8 +190,7 @@ function ContactSection() {
           <div>
             <h3 className="font-bold text-lg mb-1">Llámenos</h3>
             <p className="text-gray-500">
-              Si necesitás asesoramiento o querés consultar por una propiedad,
-              comunicate con nosotros y te atenderemos personalmente.
+              Comunicate con nosotros y te atenderemos personalmente.
             </p>
             <div className="flex items-center mt-2 text-red-500 font-medium">
               <FaPhone className="w-4 h-4 mr-2" />
@@ -90,10 +200,6 @@ function ContactSection() {
 
           <div>
             <h3 className="font-bold text-lg mb-1">Visítenos</h3>
-            <p className="text-gray-500">
-              Acercate a nuestras oficinas para recibir atención personalizada y
-              conocer nuestras últimas propiedades disponibles.
-            </p>
             <div className="flex items-center mt-2 text-red-500 font-medium">
               <FaMapMarkerAlt className="w-4 h-4 mr-2" />
               Av. Misiones Nº0000
@@ -101,11 +207,7 @@ function ContactSection() {
           </div>
 
           <div>
-            <h3 className="font-bold text-lg mb-1">Contáctenos por Whatsapp</h3>
-            <p className="text-gray-500">
-              También podés escribirnos por WhatsApp para recibir respuestas
-              rápidas o coordinar una cita con uno de nuestros asesores.
-            </p>
+            <h3 className="font-bold text-lg mb-1">Whatsapp</h3>
             <div className="flex items-center mt-2 text-red-500 font-medium">
               <FaWhatsapp className="w-4 h-4 mr-2" />
               +54 3755 900000

@@ -99,3 +99,17 @@ export const fechGaleria = async (id) => {
   const res = await api.get(`/galerias/${id}?populate=foto`);
   return res.data.data;
 };
+
+// Crear mensaje de contacto
+export const createMensaje = async (payload) => {
+  try {
+    const { data } = await api.post("/mensajes", {
+      data: payload,
+    });
+
+    return data.data;
+  } catch (error) {
+    console.error("Error al enviar mensaje:", error);
+    throw error;
+  }
+};
