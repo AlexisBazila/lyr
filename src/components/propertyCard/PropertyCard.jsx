@@ -1,6 +1,7 @@
 import React from "react";
 import "./propertyCard.css";
 import SmallButton from "../smallButton/SmallButton";
+import { Link } from "react-router-dom";
 import image from "../../assets/images/noimage.png";
 import sellExample from "../../assets/images/sellExample.jpg";
 
@@ -39,13 +40,13 @@ function PropertyCard({
   return (
     <div className="w-full max-w-[370px] mx-auto bg-white border border-gray-200 rounded-lg shadow-s max-h-[600px]">
       {/* IMAGE */}
-      <a href="#">
+      <Link to={`/info-propiedad/${id}`}>
         <img
           className="rounded-t-lg w-full max-h-3/6 object-cover"
           src={imageUrl}
           alt={titulo}
         />
-      </a>
+      </Link>
 
       {/* CONTENT */}
       <div className="p-5">
