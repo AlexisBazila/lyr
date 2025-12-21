@@ -15,6 +15,7 @@ import Contacto from "./pages/Contacto";
 import Tasaciones from "./pages/Tasaciones";
 import Propiedades from "./pages/Propiedades";
 import ScrollToTop from "./components/ScrollToTop";
+import ChatBotFAQ from "./components/ChatBotFAQ/ChatBotFAQ";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -22,6 +23,7 @@ function App() {
   return (
     <Router>
       <ScrollToTop />
+      <ChatBotFAQ />
       <NavBar />
       <Routes>
         <Route path="/" element={<Home />} />
