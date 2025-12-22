@@ -2,7 +2,7 @@ import React from "react";
 import TitleAndSubtitle from "../components/titleandsubtitle/TitleAndSubtitle";
 import CounterSection from "../layouts/counterSection/CounterSection";
 import FeaturedSection from "../layouts/featuredSection/FeaturedSection";
-import AboutUsSection from "../layouts/aboutUsSection/aboutUsSection";
+import AboutUsSection from "../layouts/aboutUsSection/AboutUsSection";
 import OurServicesHomeSection from "../layouts/ourServicesHomeSection/OurServicesHomeSection";
 import HeroSection from "../layouts/heroSection/HeroSection";
 import SmallSearcher from "../components/smallSearcher/SmallSearcher";
