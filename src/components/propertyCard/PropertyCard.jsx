@@ -1,7 +1,6 @@
 import React from "react";
 import "./propertyCard.css";
 import SmallButton from "../smallButton/SmallButton";
-import image from "../../assets/images/noimage.png";
 import sellExample from "../../assets/images/sellExample.jpg";
 import { GoDotFill } from "react-icons/go";
 import { LuMapPinHouse } from "react-icons/lu";
