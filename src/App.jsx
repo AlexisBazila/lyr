@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import "flowbite";
 
-import NavBar from "./layouts/RnavBar/navBar";
+import NavBar from "./layouts/RnavBar/NavBar";
 import Footer from "./layouts/footer/Footer";
 import Home from "./pages/Home";
 import HeroSection from "./layouts/heroSection/HeroSection";
