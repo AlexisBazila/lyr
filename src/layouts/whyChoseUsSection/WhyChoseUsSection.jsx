@@ -1,5 +1,5 @@
 import React from "react";
-import CentredTitleAndSubtitle from "../../components/centredtitleandsubtitle/CentredTitleAndSubtitle";
+import CentredTitleAndSubtitle from "../../components/centredTitleAndSubtitle/CentredTitleAndSubtitle";
 import IconAndDescription from "../../components/iconAndDescription/IconAndDescription";
 import FeatureCard from "../featureCard/FeatureCard";
 import { TbTargetArrow } from "react-icons/tb";
