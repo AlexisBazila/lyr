@@ -38,18 +38,18 @@ function PropertyCard({
   };
   const config = estadosConfig[estado] || estadosConfig["Oculto"];
   return (
-    <div className="w-full max-w-[370px] mx-auto bg-white border border-gray-200 rounded-lg shadow-s max-h-[600px]">
+    <div className="w-full max-w-[370px] mx-auto bg-white border border-gray-200 rounded-lg shadow-s flex flex-col">
       {/* IMAGE */}
       <Link to={`/info-propiedad/${id}`}>
         <img
-          className="rounded-t-lg w-full max-h-3/6 object-cover"
+          className="rounded-t-lg w-full h-[220px] object-cover"
           src={imageUrl}
           alt={titulo}
         />
       </Link>
 
       {/* CONTENT */}
-      <div className="p-5">
+      <div className="p-5 flex flex-col flex-1">
         {/* TITLE */}
         <div className="flex">
           <i className="text-3xl" style={{ color: config.color }}>
@@ -111,7 +111,7 @@ function PropertyCard({
         </div>
 
         {/* PRICE & BUTTON */}
-        <div className="flex items-center">
+        <div className="flex items-center mt-auto">
           <SmallButton
             caption="Ver"
             className="mr-6 px-8 py-3 font-bold"
