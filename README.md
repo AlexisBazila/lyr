@@ -249,7 +249,3 @@ Configurar plugin de Email (SMTP)
 ---
 
 📌 _Este documento se actualizará a medida que el proyecto avance y se implementen nuevas funcionalidades._
-
-```
-
-```
