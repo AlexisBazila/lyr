@@ -63,7 +63,7 @@ function PropertyGalerySection({ galeriaId }) {
 
           <button
             onClick={() => setOpenGallery(true)}
-            className="absolute bottom-5 left-5 flex bg-black/70 p-2 rounded-sm text-white items-center"
+            className="absolute bottom-5 left-5 flex bg-black/70 p-2 rounded-sm text-white items-center cursor-pointer"
           >
             <FaCamera className="mr-2" />
             Ver las {fotos.length} fotos
