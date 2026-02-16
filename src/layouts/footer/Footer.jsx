@@ -1,4 +1,5 @@
 import React from "react";
+import { CONTACT_CONFIG } from "../../config/contact";
 import "./footer.css";
 import {
   FaInstagram,
@@ -81,7 +82,7 @@ function Footer() {
                 rel="noopener noreferrer"
               >
                 <FaMapMarkerAlt className="text-[#EC1F24]" />
-                <span>Av. Misiones 887, N3360 Oberá, Misiones</span>
+                <span>{CONTACT_CONFIG.address}</span>
               </a>
             </li>
 
@@ -93,7 +94,7 @@ function Footer() {
                 rel="noopener noreferrer"
               >
                 <FaWhatsapp className="text-[#EC1F24]" />
-                <span>+54 9 3755 235694</span>
+                <span>{CONTACT_CONFIG.whatsappDisplay}</span>
               </a>
             </li>
 
@@ -103,7 +104,7 @@ function Footer() {
                 className="flex items-center space-x-3 hover:opacity-80 transition"
               >
                 <FaEnvelope className="text-[#EC1F24]" />
-                <span>inmobiliarialyrobera@gmail.com</span>
+                <span>{CONTACT_CONFIG.email}</span>
               </a>
             </li>
           </ul>

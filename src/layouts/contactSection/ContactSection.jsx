@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 import { createMensaje } from "../../services/strapi";
+import { CONTACT_CONFIG } from "../../config/contact";
 
 import { FaWhatsapp, FaMapMarkerAlt, FaPhone } from "react-icons/fa";
 import TitleAndSubtitle from "../../components/titleandsubtitle/TitleAndSubtitle";
@@ -21,6 +22,8 @@ function ContactSection() {
     message: "",
   });
 
+  const [whatsappURL, setWhatsappURL] = useState(null);
+
   const messageRef = useRef(null);
 
   const handleChange = (e) => {
@@ -39,19 +42,41 @@ function ContactSection() {
     });
 
     try {
+      // 1️⃣ Guardar en Strapi
       await createMensaje({
         ...form,
         origen: "contacto",
       });
 
+      // 2️⃣ Construir mensaje WhatsApp dinámico
+      const text = `
+Nuevo contacto desde la web:
+
+Nombre: ${form.nombre}
+Email: ${form.email}
+Teléfono: ${form.telefono || "No especificado"}
+Interés: ${form.interes || "No especificado"}
+
+Mensaje:
+${form.mensaje}
+      `;
+
+      const url = `https://wa.me/${CONTACT_CONFIG.whatsappNumber}?text=${encodeURIComponent(
+        text,
+      )}`;
+
+      setWhatsappURL(url);
+
+      // 3️⃣ Feedback amigable
       setStatus({
         loading: false,
         success: true,
         error: false,
         message:
-          "Mensaje enviado correctamente. Nos pondremos en contacto a la brevedad.",
+          "✔️ Mensaje enviado correctamente. Si lo deseas, puedes continuar la conversación por WhatsApp.",
       });
 
+      // 4️⃣ Limpiar formulario
       setForm({
         nombre: "",
         email: "",
@@ -101,7 +126,20 @@ function ContactSection() {
                 : "bg-red-100 text-red-800 border border-red-300"
             }`}
           >
-            {status.message}
+            <p>{status.message}</p>
+
+            {/* BOTÓN OPCIONAL WHATSAPP */}
+            {status.success && whatsappURL && (
+              <a
+                href={whatsappURL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center mt-3 px-4 py-2 bg-green-600 text-white text-sm rounded hover:bg-green-700 transition"
+              >
+                <FaWhatsapp className="mr-2" />
+                Continuar por WhatsApp
+              </a>
+            )}
           </div>
         )}
 
@@ -187,31 +225,42 @@ function ContactSection() {
       {/* --- DATOS DE CONTACTO --- */}
       <div className="border-l border-gray-300 pl-10 max-[1160px]:border-none max-[1160px]:pl-0">
         <div className="space-y-10">
+          {/* TELÉFONO */}
           <div>
             <h3 className="font-bold text-lg mb-1">Llámenos</h3>
-            <p className="text-gray-500">
+            <p className="text-gray-500 text-sm">
               Comunicate con nosotros y te atenderemos personalmente.
             </p>
-            <div className="flex items-center mt-2 text-red-500 font-medium">
+            <a
+              href={`tel:${CONTACT_CONFIG.phone}`}
+              className="flex items-center mt-2 text-red-500 font-medium hover:underline"
+            >
               <FaPhone className="w-4 h-4 mr-2" />
-              +54 3755 000000
-            </div>
+              {CONTACT_CONFIG.phone}
+            </a>
           </div>
 
+          {/* DIRECCIÓN */}
           <div>
             <h3 className="font-bold text-lg mb-1">Visítenos</h3>
             <div className="flex items-center mt-2 text-red-500 font-medium">
               <FaMapMarkerAlt className="w-4 h-4 mr-2" />
-              Av. Misiones Nº0000
+              {CONTACT_CONFIG.address}
             </div>
           </div>
 
+          {/* WHATSAPP */}
           <div>
             <h3 className="font-bold text-lg mb-1">Whatsapp</h3>
-            <div className="flex items-center mt-2 text-red-500 font-medium">
+            <a
+              href={`https://wa.me/${CONTACT_CONFIG.whatsappNumber}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center mt-2 text-red-500 font-medium hover:underline"
+            >
               <FaWhatsapp className="w-4 h-4 mr-2" />
-              +54 3755 900000
-            </div>
+              {CONTACT_CONFIG.whatsappDisplay}
+            </a>
           </div>
         </div>
       </div>
