@@ -13,6 +13,8 @@ function ContactSection() {
     telefono: "",
     interes: "",
     mensaje: "",
+    referencia: "",
+    referencia_otro: "",
   });
 
   const [status, setStatus] = useState({
@@ -42,13 +44,19 @@ function ContactSection() {
     });
 
     try {
-      // 1️⃣ Guardar en Strapi
+      // Guardar en Strapi
       await createMensaje({
         ...form,
         origen: "contacto",
       });
 
-      // 2️⃣ Construir mensaje WhatsApp dinámico
+      // Determinar texto final de referencia
+      const referenciaFinal =
+        form.referencia === "Otro"
+          ? form.referencia_otro || "Otro"
+          : form.referencia || "No especificado";
+
+      // Construir mensaje WhatsApp dinámico
       const text = `
 Nuevo contacto desde la web:
 
@@ -56,6 +64,7 @@ Nombre: ${form.nombre}
 Email: ${form.email}
 Teléfono: ${form.telefono || "No especificado"}
 Interés: ${form.interes || "No especificado"}
+Referencia: ${referenciaFinal}
 
 Mensaje:
 ${form.mensaje}
@@ -67,7 +76,7 @@ ${form.mensaje}
 
       setWhatsappURL(url);
 
-      // 3️⃣ Feedback amigable
+      // Feedback
       setStatus({
         loading: false,
         success: true,
@@ -76,13 +85,15 @@ ${form.mensaje}
           "✔️ Mensaje enviado correctamente. Si lo deseas, puedes continuar la conversación por WhatsApp.",
       });
 
-      // 4️⃣ Limpiar formulario
+      // Limpiar formulario
       setForm({
         nombre: "",
         email: "",
         telefono: "",
         interes: "",
         mensaje: "",
+        referencia: "",
+        referencia_otro: "",
       });
     } catch (err) {
       setStatus({
@@ -128,7 +139,6 @@ ${form.mensaje}
           >
             <p>{status.message}</p>
 
-            {/* BOTÓN OPCIONAL WHATSAPP */}
             {status.success && whatsappURL && (
               <a
                 href={whatsappURL}
@@ -153,7 +163,7 @@ ${form.mensaje}
                 value={form.nombre}
                 onChange={handleChange}
                 required
-                className="w-full border-0 border-b-2 border-gray-400 focus:border-black outline-none pb-1"
+                className="w-full border-0 border-b-2 border-gray-400 focus:border-black outline-none pb-1 focus:ring-0 focus:ring-offset-0"
               />
             </div>
             <div>
@@ -164,7 +174,7 @@ ${form.mensaje}
                 value={form.email}
                 onChange={handleChange}
                 required
-                className="w-full border-0 border-b-2 border-gray-400 focus:border-black outline-none pb-1"
+                className="w-full border-0 border-b-2 border-gray-400 focus:border-black outline-none pb-1 focus:ring-0 focus:ring-offset-0"
               />
             </div>
           </div>
@@ -176,7 +186,7 @@ ${form.mensaje}
                 name="interes"
                 value={form.interes}
                 onChange={handleChange}
-                className="w-full border-0 border-b-2 border-gray-400 focus:border-black outline-none pb-1 bg-transparent"
+                className="w-full border-0 border-b-2 border-gray-400 focus:border-black outline-none pb-1 bg-transparent focus:ring-0 focus:ring-offset-0"
               >
                 <option value="">Seleccione una opción</option>
                 <option value="venta">Compra o venta</option>
@@ -191,10 +201,48 @@ ${form.mensaje}
                 name="telefono"
                 value={form.telefono}
                 onChange={handleChange}
-                className="w-full border-0 border-b-2 border-gray-400 focus:border-black outline-none pb-1"
+                className="w-full border-0 border-b-2 border-gray-400 focus:border-black outline-none pb-1 focus:ring-0 focus:ring-offset-0"
               />
             </div>
           </div>
+
+          {/* REFERENCIA */}
+          <div>
+            <label className="block text-sm mb-1">¿Cómo nos conociste?</label>
+            <select
+              name="referencia"
+              value={form.referencia}
+              onChange={handleChange}
+              required
+              className="w-full border-0 border-b-2 border-gray-400 focus:border-black outline-none pb-1 bg-transparent focus:ring-0 focus:ring-offset-0"
+            >
+              <option value="">Seleccione una opción</option>
+              <option value="Facebook">Facebook</option>
+              <option value="Instagram">Instagram</option>
+              <option value="Google">Google</option>
+              <option value="Radio">Radio</option>
+              <option value="Cartel">Cartel</option>
+              <option value="Referido">Referido</option>
+              <option value="Otro">Otro</option>
+            </select>
+          </div>
+
+          {/* REFERENCIA OTRO */}
+          {form.referencia === "Otro" && (
+            <div>
+              <label className="block text-sm mb-1">
+                ¿Dónde nos conociste?
+              </label>
+              <input
+                type="text"
+                name="referencia_otro"
+                value={form.referencia_otro}
+                onChange={handleChange}
+                required
+                className="w-full border-0 border-b-2 border-gray-400 focus:border-black outline-none pb-1 focus:ring-0 focus:ring-offset-0"
+              />
+            </div>
+          )}
 
           <div>
             <label className="block text-sm mb-1">Mensaje:</label>
@@ -204,7 +252,7 @@ ${form.mensaje}
               onChange={handleChange}
               rows="3"
               required
-              className="w-full border-0 border-b-2 border-gray-400 focus:border-black outline-none resize-none pb-1"
+              className="w-full border-0 border-b-2 border-gray-400 focus:border-black outline-none resize-none pb-1 focus:ring-0 focus:ring-offset-0"
             />
           </div>
 
@@ -225,7 +273,6 @@ ${form.mensaje}
       {/* --- DATOS DE CONTACTO --- */}
       <div className="border-l border-gray-300 pl-10 max-[1160px]:border-none max-[1160px]:pl-0">
         <div className="space-y-10">
-          {/* TELÉFONO */}
           <div>
             <h3 className="font-bold text-lg mb-1">Llámenos</h3>
             <p className="text-gray-500 text-sm">
@@ -240,7 +287,6 @@ ${form.mensaje}
             </a>
           </div>
 
-          {/* DIRECCIÓN */}
           <div>
             <h3 className="font-bold text-lg mb-1">Visítenos</h3>
             <div className="flex items-center mt-2 text-red-500 font-medium">
@@ -249,7 +295,6 @@ ${form.mensaje}
             </div>
           </div>
 
-          {/* WHATSAPP */}
           <div>
             <h3 className="font-bold text-lg mb-1">Whatsapp</h3>
             <a

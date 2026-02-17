@@ -22,6 +22,8 @@ function PropertyInfoSection({ propiedad }) {
     telefono: "",
     email: "",
     mensaje: "",
+    referencia: "",
+    referencia_otro: "",
   });
 
   const [status, setStatus] = useState("idle");
@@ -42,6 +44,7 @@ function PropertyInfoSection({ propiedad }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     setStatus("loading");
 
     try {
@@ -50,6 +53,11 @@ function PropertyInfoSection({ propiedad }) {
         origen: "propiedad",
         propiedad: propiedad.documentId,
       });
+
+      const referenciaFinal =
+        form.referencia === "Otro"
+          ? form.referencia_otro || "Otro"
+          : form.referencia || "No especificado";
 
       const text = `
 Nueva consulta sobre propiedad:
@@ -60,6 +68,7 @@ Ubicación: ${propiedad.direccion}
 Nombre: ${form.nombre}
 Email: ${form.email || "No especificado"}
 Teléfono: ${form.telefono || "No especificado"}
+Referencia: ${referenciaFinal}
 
 Mensaje:
 ${form.mensaje || "Solicito más información y disponibilidad."}
@@ -77,6 +86,8 @@ ${form.mensaje || "Solicito más información y disponibilidad."}
         telefono: "",
         email: "",
         mensaje: "",
+        referencia: "",
+        referencia_otro: "",
       });
     } catch (error) {
       console.error(error);
@@ -161,7 +172,6 @@ ${form.mensaje || "Solicito más información y disponibilidad."}
             Más acerca de esta propiedad
           </h3>
 
-          {/* Mensajes */}
           <div ref={messageRef} className="mb-4">
             {status === "success" && (
               <div className="text-green-700 text-sm space-y-3">
@@ -203,7 +213,7 @@ ${form.mensaje || "Solicito más información y disponibilidad."}
                 value={form.nombre}
                 onChange={handleChange}
                 required
-                className="w-full border-0 border-b-2 border-gray-400 focus:border-black outline-none py-1 bg-transparent"
+                className="w-full border-0 border-b-2 border-gray-400 focus:border-black outline-none py-1 bg-transparent focus:ring-0 focus:ring-offset-0"
               />
             </div>
 
@@ -216,7 +226,7 @@ ${form.mensaje || "Solicito más información y disponibilidad."}
                 name="telefono"
                 value={form.telefono}
                 onChange={handleChange}
-                className="w-full border-0 border-b-2 border-gray-400 focus:border-black outline-none py-1 bg-transparent"
+                className="w-full border-0 border-b-2 border-gray-400 focus:border-black outline-none py-1 bg-transparent focus:ring-0 focus:ring-offset-0"
               />
             </div>
 
@@ -230,9 +240,49 @@ ${form.mensaje || "Solicito más información y disponibilidad."}
                 value={form.email}
                 onChange={handleChange}
                 required
-                className="w-full border-0 border-b-2 border-gray-400 focus:border-black outline-none py-1 bg-transparent"
+                className="w-full border-0 border-b-2 border-gray-400 focus:border-black outline-none py-1 bg-transparent focus:ring-0 focus:ring-offset-0"
               />
             </div>
+
+            {/* REFERENCIA */}
+            <div className="col-span-2 max-[1160px]:col-span-1">
+              <label className="block text-xl text-gray-600 mb-1">
+                ¿Cómo nos conociste?
+              </label>
+              <select
+                name="referencia"
+                value={form.referencia}
+                onChange={handleChange}
+                required
+                className="w-full border-0 border-b-2 border-gray-400 focus:border-black outline-none py-1 bg-transparent focus:ring-0 focus:ring-offset-0"
+              >
+                <option value="">Seleccione una opción</option>
+                <option value="Facebook">Facebook</option>
+                <option value="Instagram">Instagram</option>
+                <option value="Google">Google</option>
+                <option value="Radio">Radio</option>
+                <option value="Cartel">Cartel</option>
+                <option value="Referido">Referido</option>
+                <option value="Otro">Otro</option>
+              </select>
+            </div>
+
+            {/* REFERENCIA OTRO */}
+            {form.referencia === "Otro" && (
+              <div className="col-span-2 max-[1160px]:col-span-1">
+                <label className="block text-xl text-gray-600 mb-1">
+                  ¿Dónde nos conociste?
+                </label>
+                <input
+                  type="text"
+                  name="referencia_otro"
+                  value={form.referencia_otro}
+                  onChange={handleChange}
+                  required
+                  className="w-full border-0 border-b-2 border-gray-400 focus:border-black outline-none py-1 bg-transparent focus:ring-0 focus:ring-offset-0"
+                />
+              </div>
+            )}
 
             <div className="col-span-2 max-[1160px]:col-span-1">
               <label className="block text-xl text-gray-600">Mensaje</label>
@@ -241,11 +291,11 @@ ${form.mensaje || "Solicito más información y disponibilidad."}
                 name="mensaje"
                 value={form.mensaje}
                 onChange={handleChange}
-                className="w-full border-0 border-b-2 border-gray-400 focus:border-black outline-none py-1"
+                className="w-full border-0 border-b-2 border-gray-400 focus:border-black outline-none py-1 focus:ring-0 focus:ring-offset-0"
               />
             </div>
 
-            <div className="col-span-2 mt-4">
+            <div className="col-span-2 max-[1160px]:col-span-1 mt-4">
               <button
                 type="submit"
                 disabled={status === "loading"}

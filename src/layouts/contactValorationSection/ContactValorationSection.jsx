@@ -20,6 +20,8 @@ function ContactValorationSection() {
     supcubierta: "",
     suptotal: "",
     descripcion: "",
+    referencia: "",
+    referencia_otro: "",
   });
 
   const [status, setStatus] = useState("idle"); // idle | loading | success | error
@@ -48,6 +50,11 @@ function ContactValorationSection() {
         origen: "tasacion",
       });
 
+      const referenciaFinal =
+        form.referencia === "Otro"
+          ? form.referencia_otro || "Otro"
+          : form.referencia || "No especificado";
+
       const text = `
 Nueva solicitud de pre-tasación:
 
@@ -63,6 +70,8 @@ Antigüedad: ${form.antiguedad || "No especificado"}
 
 Superficie cubierta: ${form.supcubierta || "No especificado"} m²
 Superficie total: ${form.suptotal || "No especificado"} m²
+
+¿Cómo nos conoció?: ${referenciaFinal}
 
 Descripción:
 ${form.descripcion || "Sin descripción"}
@@ -87,6 +96,8 @@ ${form.descripcion || "Sin descripción"}
         supcubierta: "",
         suptotal: "",
         descripcion: "",
+        referencia: "",
+        referencia_otro: "",
       });
     } catch (err) {
       console.error(err);
@@ -95,9 +106,9 @@ ${form.descripcion || "Sin descripción"}
   };
 
   return (
-    <section className="grid grid-cols-[60%_40%] justify-center items-start px-[10%] py-16 max-[1160px]:grid-cols-1">
+    <section className="grid grid-cols-[60%_40%] items-stretch px-[10%] py-16 max-[1160px]:grid-cols-1">
       {/* Lado izquierdo */}
-      <div className="flex flex-col justify-center mr-10 max-[1160px]:mr-0 max-[1160px]:mb-10">
+      <div className="flex flex-col h-full mr-10 max-[1160px]:mr-0 max-[1160px]:mb-10">
         <div>
           <TitleAndSubtitle
             title="Pre-Tasación"
@@ -110,7 +121,8 @@ ${form.descripcion || "Sin descripción"}
           />
         </div>
 
-        <div className="mt-10 w-full rounded-md flex items-center justify-center max-[1160px]:mt-0">
+        {/* Imagen flexible */}
+        <div className="mt-10 flex-1 w-full rounded-md overflow-hidden max-[1160px]:mt-6">
           <img
             src={pretasacion}
             alt="Pre tasación"
@@ -121,11 +133,11 @@ ${form.descripcion || "Sin descripción"}
 
       {/* Formulario */}
       <form
-        className="grid grid-cols-2 gap-x-8 gap-y-5 max-[500px]:grid-cols-1"
+        className="grid grid-cols-2 max-[500px]:grid-cols-1 gap-x-8 gap-y-5 h-full"
         onSubmit={handleSubmit}
       >
         {/* Mensajes */}
-        <div ref={messageRef} className="col-span-2">
+        <div className="col-span-2 max-[500px]:col-span-1" ref={messageRef}>
           {status === "success" && (
             <div className="text-green-700 text-sm space-y-3">
               <p>
@@ -154,6 +166,8 @@ ${form.descripcion || "Sin descripción"}
           )}
         </div>
 
+        {/* --- resto del formulario SIN CAMBIOS --- */}
+
         {/* Nombre */}
         <div>
           <label className="block text-sm text-gray-600 mb-1">Nombre</label>
@@ -162,7 +176,8 @@ ${form.descripcion || "Sin descripción"}
             name="nombre"
             value={form.nombre}
             onChange={handleChange}
-            className="w-full border-0 border-b-2 border-gray-400 focus:border-black outline-none py-1 bg-transparent"
+            required
+            className="w-full border-0 border-b-2 border-gray-400 focus:border-black outline-none py-1 bg-transparent focus:ring-0 focus:ring-offset-0"
           />
         </div>
 
@@ -174,7 +189,7 @@ ${form.descripcion || "Sin descripción"}
             name="telefono"
             value={form.telefono}
             onChange={handleChange}
-            className="w-full border-0 border-b-2 border-gray-400 focus:border-black outline-none py-1 bg-transparent"
+            className="w-full border-0 border-b-2 border-gray-400 focus:border-black outline-none py-1 bg-transparent focus:ring-0 focus:ring-offset-0"
           />
         </div>
 
@@ -186,7 +201,7 @@ ${form.descripcion || "Sin descripción"}
             name="celular"
             value={form.celular}
             onChange={handleChange}
-            className="w-full border-0 border-b-2 border-gray-400 focus:border-black outline-none py-1 bg-transparent"
+            className="w-full border-0 border-b-2 border-gray-400 focus:border-black outline-none py-1 bg-transparent focus:ring-0 focus:ring-offset-0"
           />
         </div>
 
@@ -198,12 +213,13 @@ ${form.descripcion || "Sin descripción"}
             name="email"
             value={form.email}
             onChange={handleChange}
-            className="w-full border-0 border-b-2 border-gray-400 focus:border-black outline-none py-1 bg-transparent"
+            required
+            className="w-full border-0 border-b-2 border-gray-400 focus:border-black outline-none py-1 bg-transparent focus:ring-0 focus:ring-offset-0"
           />
         </div>
 
         {/* Dirección */}
-        <div className="col-span-2 relative max-[500px]:col-span-1">
+        <div className="col-span-2 max-[500px]:col-span-1 relative">
           <label className="block text-sm text-gray-600">
             Dirección de la propiedad a tasar
           </label>
@@ -212,10 +228,50 @@ ${form.descripcion || "Sin descripción"}
             name="direccion"
             value={form.direccion}
             onChange={handleChange}
-            className="w-full border-0 border-b-2 border-gray-400 focus:border-black outline-none py-1 pr-8 bg-transparent"
+            required
+            className="w-full border-0 border-b-2 border-gray-400 focus:border-black outline-none py-1 pr-8 bg-transparent focus:ring-0 focus:ring-offset-0"
           />
           <FaMapMarkedAlt className="absolute right-3 bottom-2 text-red-500 w-5 h-5" />
         </div>
+
+        {/* Referencia */}
+        <div className="col-span-2 max-[500px]:col-span-1">
+          <label className="block text-sm text-gray-600">
+            ¿Cómo nos conociste?
+          </label>
+          <select
+            name="referencia"
+            value={form.referencia}
+            onChange={handleChange}
+            required
+            className="appearance-none border-0 w-full border-b-2 border-gray-400 focus:border-black outline-none py-1 bg-transparent focus:ring-0 focus:ring-offset-0"
+          >
+            <option value="">Seleccione una opción</option>
+            <option value="Facebook">Facebook</option>
+            <option value="Instagram">Instagram</option>
+            <option value="Google">Google</option>
+            <option value="Radio">Radio</option>
+            <option value="Cartel">Cartel</option>
+            <option value="Referido">Referido</option>
+            <option value="Otro">Otro</option>
+          </select>
+        </div>
+
+        {form.referencia === "Otro" && (
+          <div className="col-span-2 max-[500px]:col-span-1">
+            <label className="block text-sm text-gray-600">
+              ¿Dónde nos conociste?
+            </label>
+            <input
+              type="text"
+              name="referencia_otro"
+              value={form.referencia_otro}
+              onChange={handleChange}
+              required
+              className="w-full border-0 border-b-2 border-gray-400 focus:border-black outline-none py-1 bg-transparent focus:ring-0 focus:ring-offset-0"
+            />
+          </div>
+        )}
 
         {/* Tipo */}
         <div>
@@ -226,7 +282,8 @@ ${form.descripcion || "Sin descripción"}
             name="tipo"
             value={form.tipo}
             onChange={handleChange}
-            className="appearance-none border-0 w-full border-b-2 border-gray-400 focus:border-black outline-none py-1 bg-transparent"
+            required
+            className="appearance-none border-0 w-full border-b-2 border-gray-400 focus:border-black outline-none py-1 bg-transparent focus:ring-0 focus:ring-offset-0"
           >
             <option value="">Seleccione</option>
             <option value="Casa">Casa</option>
@@ -242,7 +299,7 @@ ${form.descripcion || "Sin descripción"}
             name="ambientes"
             value={form.ambientes}
             onChange={handleChange}
-            className="appearance-none border-0 w-full border-b-2 border-gray-400 focus:border-black outline-none py-1 bg-transparent"
+            className="appearance-none border-0 w-full border-b-2 border-gray-400 focus:border-black outline-none py-1 bg-transparent focus:ring-0 focus:ring-offset-0"
           >
             <option value="">Seleccione</option>
             <option value="1">1</option>
@@ -259,7 +316,7 @@ ${form.descripcion || "Sin descripción"}
             name="antiguedad"
             value={form.antiguedad}
             onChange={handleChange}
-            className="w-full border-0 border-b-2 border-gray-400 focus:border-black outline-none py-1 bg-transparent"
+            className="w-full border-0 border-b-2 border-gray-400 focus:border-black outline-none py-1 bg-transparent focus:ring-0 focus:ring-offset-0"
           />
         </div>
 
@@ -273,7 +330,8 @@ ${form.descripcion || "Sin descripción"}
             name="supcubierta"
             value={form.supcubierta}
             onChange={handleChange}
-            className="w-full border-0 border-b-2 border-gray-400 focus:border-black outline-none py-1 pr-6 bg-transparent"
+            required
+            className="w-full border-0 border-b-2 border-gray-400 focus:border-black outline-none py-1 pr-6 bg-transparent focus:ring-0 focus:ring-offset-0"
           />
           <span className="absolute right-3 bottom-2 text-red-500 text-sm">
             m²
@@ -290,7 +348,8 @@ ${form.descripcion || "Sin descripción"}
             name="suptotal"
             value={form.suptotal}
             onChange={handleChange}
-            className="w-full border-0 border-b-2 border-gray-400 focus:border-black outline-none py-1 pr-6 bg-transparent"
+            required
+            className="w-full border-0 border-b-2 border-gray-400 focus:border-black outline-none py-1 pr-6 bg-transparent focus:ring-0 focus:ring-offset-0"
           />
           <span className="absolute right-3 bottom-2 text-red-500 text-sm">
             m²
@@ -305,12 +364,13 @@ ${form.descripcion || "Sin descripción"}
             value={form.descripcion}
             onChange={handleChange}
             rows="3"
-            className="w-full border-0 border-b-2 border-gray-400 focus:border-black outline-none py-1 bg-transparent"
+            required
+            className="w-full border-0 border-b-2 border-gray-400 focus:border-black outline-none py-1 bg-transparent focus:ring-0 focus:ring-offset-0"
           ></textarea>
         </div>
 
         {/* Botón */}
-        <div className="col-span-2 mt-4 max-[500px]:col-span-1">
+        <div className="col-span-2 max-[500px]:col-span-1 mt-4">
           <button
             type="submit"
             disabled={status === "loading"}
