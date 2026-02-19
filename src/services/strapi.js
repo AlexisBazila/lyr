@@ -43,7 +43,7 @@ export const fechPropiedades = async (filtros = {}) => {
     // Otros Filtros
     // ------------------------------
     Object.entries(filtros).forEach(([key, val]) => {
-      if (!val || key === "ubicacion") return;
+      if (!val || key === "ubicacion" || key === "pageSize") return;
 
       if (relationFields.has(key)) {
         params.append(`filters[${key}][id][$eq]`, val);
@@ -55,6 +55,10 @@ export const fechPropiedades = async (filtros = {}) => {
 
       params.append(`filters[${key}][$eq]`, val);
     });
+
+    if (filtros.pageSize) {
+  params.append("pagination[pageSize]", filtros.pageSize);
+}
 
     if (orFilters.length > 0) {
       orFilters.forEach((f) => {
