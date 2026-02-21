@@ -45,6 +45,28 @@ function BigSearcher() {
   });
   // Estado del modal
   const [showAdvanced, setShowAdvanced] = useState(false);
+  const advancedFilterKeys = [
+    "banios",
+    "supcubierta",
+    "suptotal",
+    "pisos",
+    "antiguedadMin",
+    "antiguedadMax",
+    "garage",
+    "luz",
+    "cloacas",
+    "internet",
+    "aire",
+    "calefaccion",
+    "destacado",
+    "agua",
+  ];
+
+  const advancedFiltersCount = advancedFilterKeys.filter((key) => {
+    const value = filters[key];
+    return value !== undefined && value !== null && value !== "";
+  }).length;
+
   // 📍 Al hacer click en BUSCAR -> redirige a Propiedades con filtros en URL
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -223,9 +245,15 @@ function BigSearcher() {
             <button
               type="button"
               onClick={() => setShowAdvanced(true)}
-              className="flex items-center gap-1 border border-black rounded-lg px-3 py-2 text-black hover:bg-gray-100 max-[800px]:w-[50%]"
+              className="relative flex items-center gap-1 border border-black rounded-lg px-3 py-2 text-black hover:bg-gray-100 max-[800px]:w-[50%]"
             >
-              <FiFilter /> Otros
+              <FiFilter />
+              Otros
+              {advancedFiltersCount > 0 && (
+                <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
+                  {advancedFiltersCount}
+                </span>
+              )}
             </button>
 
             <button
