@@ -1,15 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
 import TitleAndSubtitle from "../../components/titleandsubtitle/TitleAndSubtitle";
 import LeftAlignedParagraph from "../../components/LeftAlignedParagraph/LeftAlignedParagraph";
-import "flowbite";
+import { IoChevronDown } from "react-icons/io5";
 
 function FAQSection() {
+  const [activeIndex, setActiveIndex] = useState(null);
+
+  const toggleAccordion = (index) => {
+    setActiveIndex(activeIndex === index ? null : index);
+  };
+
+  const faqs = [
+    {
+      question: "¿Qué incluye el servicio de tasación?",
+      answer:
+        "Realizamos tasaciones de casas, departamentos, terrenos, locales comerciales y más, adaptando el análisis al mercado actual.",
+    },
+    {
+      question: "¿Cuánto tiempo demora el proceso?",
+      answer:
+        "El proceso suele demorar entre 24 y 72 horas dependiendo del tipo de propiedad.",
+    },
+    {
+      question: "¿Qué información necesito para solicitar la tasación?",
+      answer:
+        "Datos básicos del inmueble, ubicación, metros cuadrados y estado general.",
+    },
+  ];
+
   return (
     <section className="px-[10%] my-30">
       <div>
         <TitleAndSubtitle
           title="FAQs"
-          subtitle={"Preguntas y respuestas frecuentes"}
+          subtitle="Preguntas y respuestas frecuentes"
         />
         <LeftAlignedParagraph
           paragraphs={[
@@ -17,148 +41,34 @@ function FAQSection() {
           ]}
         />
       </div>
-      {/* Acordeon*/}
-      <div>
-        <div
-          id="accordion-flush"
-          data-accordion="collapse"
-          data-active-classes="bg-white text-gray-900"
-          data-inactive-classes="text-gray-500"
-        >
-          {/* Elemento del acordeon */}
-          <h2 id="accordion-flush-heading-1">
-            <button
-              type="button"
-              class="flex items-center justify-between w-full py-5 font-medium rtl:text-right text-black border-b border-gray-200 text-2xl gap-3"
-              data-accordion-target="#accordion-flush-body-1"
-              aria-expanded="true"
-              aria-controls="accordion-flush-body-1"
-            >
-              <span>¿Que incluye el servicio de tasacion?</span>
-              <svg
-                data-accordion-icon
-                class="w-7 h-7 p-2 rotate-180 shrink-0 bg-black text-white"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 10 6"
-              >
-                <path
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9 5 5 1 1 5"
-                />
-              </svg>
-            </button>
-          </h2>
-          <div
-            id="accordion-flush-body-1"
-            class="hidden"
-            aria-labelledby="accordion-flush-heading-1"
-          >
-            <div class="py-5 border-b border-gray-200 dark:border-gray-700">
-              <p class="mb-2 text-gray-500 text-lg">
-                Realizamos tasaciones de una amplia variedad de inmuebles: casas
-                familiares, departamentos en edificios, terrenos vacíos, lotes
-                en barrios cerrados, locales comerciales, oficinas y hasta
-                galpones industriales. La tasación se adapta a las
-                características específicas de cada propiedad para reflejar su
-                valor real en el mercado actual.
-              </p>
-            </div>
-          </div>
-          {/* Fin elemento acordeon */}
 
-          {/* Elemento del acordeon */}
-          <h2 id="accordion-flush-heading-2">
+      <div className="mt-10">
+        {faqs.map((faq, index) => (
+          <div key={index} className="border-b border-gray-200">
             <button
-              type="button"
-              class="flex items-center justify-between w-full py-5 font-medium rtl:text-right text-black border-b border-gray-200 text-2xl gap-3"
-              data-accordion-target="#accordion-flush-body-2"
-              aria-expanded="true"
-              aria-controls="accordion-flush-body-2"
+              onClick={() => toggleAccordion(index)}
+              className="flex items-center justify-between w-full py-5 text-2xl font-medium text-black"
             >
-              <span>¿Cuánto tiempo demora el proceso de tasación?</span>
-              <svg
-                data-accordion-icon
-                class="w-7 h-7 p-2 rotate-180 shrink-0 bg-black text-white"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 10 6"
-              >
-                <path
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9 5 5 1 1 5"
-                />
-              </svg>
-            </button>
-          </h2>
-          <div
-            id="accordion-flush-body-2"
-            class="hidden"
-            aria-labelledby="accordion-flush-heading-2"
-          >
-            <div class="py-5 border-b border-gray-200 dark:border-gray-700">
-              <p class="mb-2 text-gray-500 text-lg">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                Necessitatibus ullam odio reiciendis laborum recusandae atque
-                velit voluptatum excepturi, beatae nihil minus, numquam
-                asperiores ab nam a suscipit, eaque officia. Asperiores.
-              </p>
-            </div>
-          </div>
-          {/* Fin elemento acordeon */}
+              <span>{faq.question}</span>
 
-          {/* Elemento del acordeon */}
-          <h2 id="accordion-flush-heading-3">
-            <button
-              type="button"
-              class="flex items-center justify-between w-full py-5 font-medium rtl:text-right text-black border-b border-gray-200 text-2xl gap-3"
-              data-accordion-target="#accordion-flush-body-3"
-              aria-expanded="true"
-              aria-controls="accordion-flush-body-3"
-            >
-              <span>¿Qué información necesito para solicitar la tasación?</span>
-              <svg
-                data-accordion-icon
-                class="w-7 h-7 p-2 rotate-180 shrink-0 bg-black text-white"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 10 6"
-              >
-                <path
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9 5 5 1 1 5"
-                />
-              </svg>
+              <IoChevronDown
+                className={`transition-transform duration-300 ${
+                  activeIndex === index ? "rotate-180" : ""
+                }`}
+              />
             </button>
-          </h2>
-          <div
-            id="accordion-flush-body-3"
-            class="hidden"
-            aria-labelledby="accordion-flush-heading-3"
-          >
-            <div class="py-5 border-b border-gray-200 dark:border-gray-700">
-              <p class="mb-2 text-gray-500 text-lg">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                Necessitatibus ullam odio reiciendis laborum recusandae atque
-                velit voluptatum excepturi, beatae nihil minus, numquam
-                asperiores ab nam a suscipit, eaque officia. Asperiores.
-              </p>
+
+            <div
+              className={`overflow-hidden transition-all duration-300 ${
+                activeIndex === index
+                  ? "max-h-96 opacity-100 pb-5"
+                  : "max-h-0 opacity-0"
+              }`}
+            >
+              <p className="text-gray-600 text-lg">{faq.answer}</p>
             </div>
           </div>
-          {/* Fin elemento acordeon */}
-        </div>
+        ))}
       </div>
     </section>
   );

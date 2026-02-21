@@ -50,6 +50,7 @@ function FeaturedSection() {
             moneda={prop.moneda?.simbolo}
             estado={prop.estado?.estado}
             miniatura={prop.miniatura}
+            destacado={prop.destacado}
           />
         ))}
       </div>

@@ -2,8 +2,6 @@ import React from "react";
 import "./propertyCard.css";
 import SmallButton from "../smallButton/SmallButton";
 import { Link } from "react-router-dom";
-import image from "../../assets/images/noimage.png";
-import sellExample from "../../assets/images/sellExample.jpg";
 
 import { GoDotFill } from "react-icons/go";
 import { IoPauseCircle, IoEyeOffOutline } from "react-icons/io5";
@@ -11,6 +9,7 @@ import { LuMapPinHouse } from "react-icons/lu";
 import { TbRulerMeasure2 } from "react-icons/tb";
 import { IoIosBed } from "react-icons/io";
 import { GiBathtub } from "react-icons/gi";
+import { FaStar } from "react-icons/fa";
 
 function PropertyCard({
   id,
@@ -25,22 +24,31 @@ function PropertyCard({
   moneda,
   estado,
   miniatura,
+  destacado,
 }) {
-  // Si existe miniatura, arma la URL completa
   const imageUrl = miniatura?.url
     ? `${import.meta.env.VITE_STRAPI_URL}${miniatura.url}`
-    : "/fallback.jpg"; // opcional
+    : "/fallback.jpg";
 
   const estadosConfig = {
     Activo: { color: "#75f94c", icon: <GoDotFill /> },
     Pausado: { color: "red", icon: <IoPauseCircle /> },
     Oculto: { color: "orange", icon: <IoEyeOffOutline /> },
   };
+
   const config = estadosConfig[estado] || estadosConfig["Oculto"];
   return (
-    <div className="w-full max-w-[370px] mx-auto bg-white border border-gray-200 rounded-lg shadow-s flex flex-col">
+    <div className="relative w-full max-w-[370px] mx-auto bg-white border border-gray-200 rounded-lg shadow-s flex flex-col overflow-hidden">
+      {/* BADGE DESTACADO */}
+      {destacado && (
+        <div className="absolute top-3 right-3 z-20 bg-black text-white px-3 py-1 rounded-full flex items-center gap-2 text-sm font-semibold shadow-md">
+          <FaStar className="text-yellow-400" />
+          Destacada
+        </div>
+      )}
+
       {/* IMAGE */}
-      <Link to={`/info-propiedad/${id}`}>
+      <Link to={`/info-propiedad/${id}`} className="relative">
         <img
           className="rounded-t-lg w-full h-[220px] object-cover"
           src={imageUrl}
@@ -51,7 +59,7 @@ function PropertyCard({
       {/* CONTENT */}
       <div className="p-5 flex flex-col flex-1">
         {/* TITLE */}
-        <div className="flex">
+        <div className="flex items-center gap-2">
           <i className="text-3xl" style={{ color: config.color }}>
             {config.icon}
           </i>
@@ -66,7 +74,6 @@ function PropertyCard({
 
         {/* FEATURES */}
         <div className="mb-6 mt-6 flex flex-col min-[300px]:flex-row justify-between">
-          {/* SUP CUBIERTA */}
           <div className="flex">
             <i className="text-[40px] text-red-600 max-[400px]:text-3xl">
               <TbRulerMeasure2 />
@@ -79,7 +86,6 @@ function PropertyCard({
             </div>
           </div>
 
-          {/* AMBIENTES */}
           <div className="flex">
             <i className="text-[40px] text-red-600 max-[400px]:text-3xl">
               <IoIosBed />
@@ -90,7 +96,6 @@ function PropertyCard({
             </div>
           </div>
 
-          {/* BAÑOS */}
           <div className="flex">
             <i className="text-[40px] text-red-600 max-[400px]:text-3xl">
               <GiBathtub />
