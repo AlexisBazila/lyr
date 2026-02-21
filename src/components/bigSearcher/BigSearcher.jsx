@@ -16,6 +16,7 @@ import { FiFilter } from "react-icons/fi";
 
 // Componentes
 import "flyonui/flyonui.js";
+import AdvancedFiltersModal from "../AdvancedFiltersModal/AdvancedFiltersModal";
 
 function BigSearcher() {
   const navigate = useNavigate();
@@ -25,7 +26,8 @@ function BigSearcher() {
   function updateFilter(key, value) {
     const newParams = new URLSearchParams(searchParams);
 
-    if (!value) newParams.delete(key); // si está vacío -> lo borro
+    if (!value)
+      newParams.delete(key); // si está vacío -> lo borro
     else newParams.set(key, value); // sino -> lo guardo
 
     setSearchParams(newParams); // actualiza URL → ReactQuery refetch
@@ -41,7 +43,8 @@ function BigSearcher() {
     min: searchParams.get("min") || null,
     max: searchParams.get("max") || null,
   });
-
+  // Estado del modal
+  const [showAdvanced, setShowAdvanced] = useState(false);
   // 📍 Al hacer click en BUSCAR -> redirige a Propiedades con filtros en URL
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -219,6 +222,7 @@ function BigSearcher() {
           <div className="flex items-center gap-2">
             <button
               type="button"
+              onClick={() => setShowAdvanced(true)}
               className="flex items-center gap-1 border border-black rounded-lg px-3 py-2 text-black hover:bg-gray-100 max-[800px]:w-[50%]"
             >
               <FiFilter /> Otros
@@ -233,6 +237,13 @@ function BigSearcher() {
           </div>
         </form>
       </div>
+      {showAdvanced && (
+        <AdvancedFiltersModal
+          filters={filters}
+          setFilters={setFilters}
+          onClose={() => setShowAdvanced(false)}
+        />
+      )}
     </div>
   );
 }
