@@ -246,8 +246,26 @@ function AdvancedFiltersModal({ filters, setFilters, onClose }) {
         <div className="flex justify-end gap-4 mt-10">
           <button
             onClick={() => {
-              setFilters({});
-              onClose();
+              const cleaned = { ...filters };
+
+              [
+                "banios",
+                "supcubierta",
+                "suptotal",
+                "pisos",
+                "antiguedadMin",
+                "antiguedadMax",
+                "garage",
+                "luz",
+                "cloacas",
+                "internet",
+                "aire",
+                "calefaccion",
+                "destacado",
+                "agua",
+              ].forEach((key) => delete cleaned[key]);
+
+              setFilters(cleaned);
             }}
             className="border border-black rounded-lg px-6 py-2"
           >

@@ -42,19 +42,79 @@ export const fechPropiedades = async (filtros = {}) => {
     // ------------------------------
     // Otros Filtros
     // ------------------------------
-    Object.entries(filtros).forEach(([key, val]) => {
-      if (!val || key === "ubicacion" || key === "pageSize") return;
+Object.entries(filtros).forEach(([key, val]) => {
+  if (!val || key === "ubicacion" || key === "pageSize") return;
 
-      if (relationFields.has(key)) {
-        params.append(`filters[${key}][id][$eq]`, val);
-        return;
-      }
+  // Relaciones
+  if (relationFields.has(key)) {
+    params.append(`filters[${key}][id][$eq]`, val);
+    return;
+  }
 
-      if (key === "min") return params.append("filters[precio][$gte]", val);
-      if (key === "max") return params.append("filters[precio][$lte]", val);
+  // Precio
+  if (key === "min") {
+    params.append("filters[precio][$gte]", val);
+    return;
+  }
 
-      params.append(`filters[${key}][$eq]`, val);
-    });
+  if (key === "max") {
+    params.append("filters[precio][$lte]", val);
+    return;
+  }
+
+  // BAÑOS >=
+  if (key === "banios") {
+    params.append("filters[banios][$gte]", val);
+    return;
+  }
+
+  // M2 >=
+  if (key === "supcubierta") {
+    params.append("filters[supcubierta][$gte]", val);
+    return;
+  }
+
+  if (key === "suptotal") {
+    params.append("filters[suptotal][$gte]", val);
+    return;
+  }
+
+  // ANTIGÜEDAD
+  if (key === "antiguedadMin") {
+    params.append("filters[antiguedad][$gte]", val);
+    return;
+  }
+
+  if (key === "antiguedadMax") {
+    params.append("filters[antiguedad][$lte]", val);
+    return;
+  }
+
+  // BOOLEANOS
+  if (
+    [
+      "garage",
+      "luz",
+      "cloacas",
+      "internet",
+      "aire",
+      "calefaccion",
+      "destacado",
+    ].includes(key)
+  ) {
+    params.append(`filters[${key}][$eq]`, val);
+    return;
+  }
+
+  // AGUA (enum)
+  if (key === "agua") {
+    params.append("filters[agua][$eq]", val);
+    return;
+  }
+
+  // Default
+  params.append(`filters[${key}][$eq]`, val);
+});
 
     if (filtros.pageSize) {
   params.append("pagination[pageSize]", filtros.pageSize);

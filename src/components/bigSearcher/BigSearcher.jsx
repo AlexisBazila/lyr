@@ -34,14 +34,12 @@ function BigSearcher() {
   }
 
   // Estado para filtros del formulario
-  const [filters, setFilters] = useState({
-    ubicacion: searchParams.get("ubicacion") || null,
-    tipo: searchParams.get("tipo") || null,
-    operacion: searchParams.get("operacion") || null,
-    ambientes: searchParams.get("ambientes") || null,
-    moneda: searchParams.get("moneda") || null,
-    min: searchParams.get("min") || null,
-    max: searchParams.get("max") || null,
+  const [filters, setFilters] = useState(() => {
+    const obj = {};
+    for (const [key, value] of searchParams.entries()) {
+      obj[key] = value;
+    }
+    return obj;
   });
   // Estado del modal
   const [showAdvanced, setShowAdvanced] = useState(false);
@@ -113,6 +111,14 @@ function BigSearcher() {
     };
     fetchData();
   }, []);
+
+  useEffect(() => {
+    const obj = {};
+    for (const [key, value] of searchParams.entries()) {
+      obj[key] = value;
+    }
+    setFilters(obj);
+  }, [searchParams]);
   return (
     <div className="flex justify-center">
       <div className="bg-white p-8 rounded-b-lg shadow-[0px_4px_4px_#00000080] max-[800px]:w-full">
@@ -254,6 +260,16 @@ function BigSearcher() {
                   {advancedFiltersCount}
                 </span>
               )}
+            </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                setSearchParams({});
+              }}
+              className="bg-black text-white rounded-lg px-6 py-2 font-medium hover:bg-gray-800 max-[800px]:w-[50%]"
+            >
+              Limpiar
             </button>
 
             <button
