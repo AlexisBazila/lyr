@@ -1,12 +1,120 @@
-import React from "react";
+import React, { useRef, useState } from "react";
+import { createMensaje } from "../../services/strapi";
+import { CONTACT_CONFIG } from "../../config/contact";
 
 import { FaWhatsapp, FaMapMarkerAlt, FaPhone } from "react-icons/fa";
 import TitleAndSubtitle from "../../components/titleandsubtitle/TitleAndSubtitle";
 import LeftAlignedParagraph from "../../components/LeftAlignedParagraph/LeftAlignedParagraph";
 
 function ContactSection() {
+  const [form, setForm] = useState({
+    nombre: "",
+    email: "",
+    telefono: "",
+    interes: "",
+    mensaje: "",
+    referencia: "",
+    referencia_otro: "",
+  });
+
+  const [status, setStatus] = useState({
+    loading: false,
+    success: false,
+    error: false,
+    message: "",
+  });
+
+  const [whatsappURL, setWhatsappURL] = useState(null);
+
+  const messageRef = useRef(null);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    setStatus({
+      loading: true,
+      success: false,
+      error: false,
+      message: "",
+    });
+
+    try {
+      // Guardar en Strapi
+      await createMensaje({
+        ...form,
+        origen: "contacto",
+      });
+
+      // Determinar texto final de referencia
+      const referenciaFinal =
+        form.referencia === "Otro"
+          ? form.referencia_otro || "Otro"
+          : form.referencia || "No especificado";
+
+      // Construir mensaje WhatsApp dinámico
+      const text = `
+Nuevo contacto desde la web:
+
+Nombre: ${form.nombre}
+Email: ${form.email}
+Teléfono: ${form.telefono || "No especificado"}
+Interés: ${form.interes || "No especificado"}
+Referencia: ${referenciaFinal}
+
+Mensaje:
+${form.mensaje}
+      `;
+
+      const url = `https://wa.me/${CONTACT_CONFIG.whatsappNumber}?text=${encodeURIComponent(
+        text,
+      )}`;
+
+      setWhatsappURL(url);
+
+      // Feedback
+      setStatus({
+        loading: false,
+        success: true,
+        error: false,
+        message:
+          "✔️ Mensaje enviado correctamente. Si lo deseas, puedes continuar la conversación por WhatsApp.",
+      });
+
+      // Limpiar formulario
+      setForm({
+        nombre: "",
+        email: "",
+        telefono: "",
+        interes: "",
+        mensaje: "",
+        referencia: "",
+        referencia_otro: "",
+      });
+    } catch (err) {
+      setStatus({
+        loading: false,
+        success: false,
+        error: true,
+        message: "Ocurrió un error al enviar el mensaje. Intente nuevamente.",
+      });
+    }
+
+    // Scroll al mensaje
+    setTimeout(() => {
+      messageRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }, 100);
+  };
+
   return (
-    <section className="grid grid-cols-[1.2fr_1fr] gap-10 px-[10%] pt-5 pb-16  max-[1160px]:grid-cols-1 max-[1160px]:px-[5%]">
+    <section className="grid grid-cols-[1.2fr_1fr] gap-10 px-[10%] pt-5 pb-16 max-[1160px]:grid-cols-1 max-[1160px]:px-[5%]">
       {/* --- FORMULARIO --- */}
       <div>
         <TitleAndSubtitle
@@ -15,24 +123,58 @@ function ContactSection() {
         />
         <LeftAlignedParagraph
           paragraphs={[
-            "Completá el formulario y nuestro equipo se pondrá en contacto contigo a la brevedad. Estamos para ayudarte a resolver tus dudas o coordinar una visita.",
+            "Completá el formulario y nuestro equipo se pondrá en contacto contigo a la brevedad.",
           ]}
         />
 
-        <form className="space-y-6">
+        {/* MENSAJE ESTADO */}
+        {(status.success || status.error) && (
+          <div
+            ref={messageRef}
+            className={`mb-6 p-4 rounded-sm text-sm ${
+              status.success
+                ? "bg-green-100 text-green-800 border border-green-300"
+                : "bg-red-100 text-red-800 border border-red-300"
+            }`}
+          >
+            <p>{status.message}</p>
+
+            {status.success && whatsappURL && (
+              <a
+                href={whatsappURL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center mt-3 px-4 py-2 bg-green-600 text-white text-sm rounded hover:bg-green-700 transition"
+              >
+                <FaWhatsapp className="mr-2" />
+                Continuar por WhatsApp
+              </a>
+            )}
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-2 gap-6 max-[640px]:grid-cols-1">
             <div>
               <label className="block text-sm mb-1">Nombre</label>
               <input
                 type="text"
-                className="w-full border-0 border-b-2  focus:ring-0  border-gray-400 focus:border-black outline-none pb-1"
+                name="nombre"
+                value={form.nombre}
+                onChange={handleChange}
+                required
+                className="w-full border-0 border-b-2 border-gray-400 focus:border-black outline-none pb-1 focus:ring-0 focus:ring-offset-0"
               />
             </div>
             <div>
               <label className="block text-sm mb-1">Dirección de email</label>
               <input
                 type="email"
-                className="w-full border-0 border-b-2  focus:ring-0 border-gray-400 focus:border-black outline-none pb-1"
+                name="email"
+                value={form.email}
+                onChange={handleChange}
+                required
+                className="w-full border-0 border-b-2 border-gray-400 focus:border-black outline-none pb-1 focus:ring-0 focus:ring-offset-0"
               />
             </div>
           </div>
@@ -40,7 +182,12 @@ function ContactSection() {
           <div className="grid grid-cols-2 gap-6 max-[640px]:grid-cols-1">
             <div>
               <label className="block text-sm mb-1">Interesado en:</label>
-              <select className="w-full border-0 border-b-2  focus:ring-0 border-gray-400 focus:border-black outline-none pb-1 bg-transparent">
+              <select
+                name="interes"
+                value={form.interes}
+                onChange={handleChange}
+                className="w-full border-0 border-b-2 border-gray-400 focus:border-black outline-none pb-1 bg-transparent focus:ring-0 focus:ring-offset-0"
+              >
                 <option value="">Seleccione una opción</option>
                 <option value="venta">Compra o venta</option>
                 <option value="tasacion">Tasación</option>
@@ -51,24 +198,74 @@ function ContactSection() {
               <label className="block text-sm mb-1">Teléfono</label>
               <input
                 type="tel"
-                className="w-full border-0 border-b-2  focus:ring-0 border-gray-400 focus:border-black outline-none pb-1"
+                name="telefono"
+                value={form.telefono}
+                onChange={handleChange}
+                className="w-full border-0 border-b-2 border-gray-400 focus:border-black outline-none pb-1 focus:ring-0 focus:ring-offset-0"
               />
             </div>
           </div>
 
+          {/* REFERENCIA */}
+          <div>
+            <label className="block text-sm mb-1">¿Cómo nos conociste?</label>
+            <select
+              name="referencia"
+              value={form.referencia}
+              onChange={handleChange}
+              required
+              className="w-full border-0 border-b-2 border-gray-400 focus:border-black outline-none pb-1 bg-transparent focus:ring-0 focus:ring-offset-0"
+            >
+              <option value="">Seleccione una opción</option>
+              <option value="Facebook">Facebook</option>
+              <option value="Instagram">Instagram</option>
+              <option value="Google">Google</option>
+              <option value="Radio">Radio</option>
+              <option value="Cartel">Cartel</option>
+              <option value="Referido">Referido</option>
+              <option value="Otro">Otro</option>
+            </select>
+          </div>
+
+          {/* REFERENCIA OTRO */}
+          {form.referencia === "Otro" && (
+            <div>
+              <label className="block text-sm mb-1">
+                ¿Dónde nos conociste?
+              </label>
+              <input
+                type="text"
+                name="referencia_otro"
+                value={form.referencia_otro}
+                onChange={handleChange}
+                required
+                className="w-full border-0 border-b-2 border-gray-400 focus:border-black outline-none pb-1 focus:ring-0 focus:ring-offset-0"
+              />
+            </div>
+          )}
+
           <div>
             <label className="block text-sm mb-1">Mensaje:</label>
             <textarea
+              name="mensaje"
+              value={form.mensaje}
+              onChange={handleChange}
               rows="3"
-              className="w-full border-0 border-b-2  focus:ring-0 border-gray-400 focus:border-black outline-none resize-none pb-1"
-            ></textarea>
+              required
+              className="w-full border-0 border-b-2 border-gray-400 focus:border-black outline-none resize-none pb-1 focus:ring-0 focus:ring-offset-0"
+            />
           </div>
 
           <button
             type="submit"
-            className="bg-black text-white px-8 py-2 mt-2 rounded-sm hover:bg-gray-800 transition"
+            disabled={status.loading}
+            className={`px-8 py-2 mt-2 rounded-sm transition ${
+              status.loading
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-black text-white hover:bg-gray-800"
+            }`}
           >
-            Enviar
+            {status.loading ? "Enviando..." : "Enviar"}
           </button>
         </form>
       </div>
@@ -78,38 +275,37 @@ function ContactSection() {
         <div className="space-y-10">
           <div>
             <h3 className="font-bold text-lg mb-1">Llámenos</h3>
-            <p className="text-gray-500">
-              Si necesitás asesoramiento o querés consultar por una propiedad,
-              comunicate con nosotros y te atenderemos personalmente.
+            <p className="text-gray-500 text-sm">
+              Comunicate con nosotros y te atenderemos personalmente.
             </p>
-            <div className="flex items-center mt-2 text-red-500 font-medium">
+            <a
+              href={`tel:${CONTACT_CONFIG.phone}`}
+              className="flex items-center mt-2 text-red-500 font-medium hover:underline"
+            >
               <FaPhone className="w-4 h-4 mr-2" />
-              +54 3755 000000
-            </div>
+              {CONTACT_CONFIG.phone}
+            </a>
           </div>
 
           <div>
             <h3 className="font-bold text-lg mb-1">Visítenos</h3>
-            <p className="text-gray-500">
-              Acercate a nuestras oficinas para recibir atención personalizada y
-              conocer nuestras últimas propiedades disponibles.
-            </p>
             <div className="flex items-center mt-2 text-red-500 font-medium">
               <FaMapMarkerAlt className="w-4 h-4 mr-2" />
-              Av. Misiones Nº0000
+              {CONTACT_CONFIG.address}
             </div>
           </div>
 
           <div>
-            <h3 className="font-bold text-lg mb-1">Contáctenos por Whatsapp</h3>
-            <p className="text-gray-500">
-              También podés escribirnos por WhatsApp para recibir respuestas
-              rápidas o coordinar una cita con uno de nuestros asesores.
-            </p>
-            <div className="flex items-center mt-2 text-red-500 font-medium">
+            <h3 className="font-bold text-lg mb-1">Whatsapp</h3>
+            <a
+              href={`https://wa.me/${CONTACT_CONFIG.whatsappNumber}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center mt-2 text-red-500 font-medium hover:underline"
+            >
               <FaWhatsapp className="w-4 h-4 mr-2" />
-              +54 3755 900000
-            </div>
+              {CONTACT_CONFIG.whatsappDisplay}
+            </a>
           </div>
         </div>
       </div>

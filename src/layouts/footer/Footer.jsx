@@ -1,4 +1,5 @@
 import React from "react";
+import { CONTACT_CONFIG } from "../../config/contact";
 import "./footer.css";
 import {
   FaInstagram,
@@ -72,18 +73,39 @@ function Footer() {
         {/* Columna 3 */}
         <div>
           <h3 className="font-semibold mb-4">Contactanos</h3>
-          <ul className="space-y-3 ">
-            <li className="flex items-center space-x-3">
-              <FaMapMarkerAlt className="text-[#EC1F24]" />
-              <span>Av. Misiones 887, N3360 Oberá, Misiones</span>
+          <ul className="space-y-3">
+            <li>
+              <a
+                href="https://maps.app.goo.gl/oeiJGCNgZbPnpKaVA"
+                className="flex items-center space-x-3 hover:opacity-80 transition"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaMapMarkerAlt className="text-[#EC1F24]" />
+                <span>{CONTACT_CONFIG.address}</span>
+              </a>
             </li>
-            <li className="flex items-center space-x-3">
-              <FaWhatsapp className="text-[#EC1F24]" />
-              <span>+54 9 3755 23-5694</span>
+
+            <li>
+              <a
+                href="https://wa.me/+5493755235694"
+                className="flex items-center space-x-3 hover:opacity-80 transition"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaWhatsapp className="text-[#EC1F24]" />
+                <span>{CONTACT_CONFIG.whatsappDisplay}</span>
+              </a>
             </li>
-            <li className="flex items-center space-x-3">
-              <FaEnvelope className="text-[#EC1F24]" />
-              <span>mail@lyrinmobiliaria.com.ar</span>
+
+            <li>
+              <a
+                href="mailto:inmobiliarialyrobera@gmail.com"
+                className="flex items-center space-x-3 hover:opacity-80 transition"
+              >
+                <FaEnvelope className="text-[#EC1F24]" />
+                <span>{CONTACT_CONFIG.email}</span>
+              </a>
             </li>
           </ul>
         </div>
