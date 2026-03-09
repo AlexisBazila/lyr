@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./propertyCard.css";
 import SmallButton from "../smallButton/SmallButton";
 import image from "../../assets/images/noimage.png";

@@ -16,6 +16,7 @@ import Tasaciones from "./pages/Tasaciones";
 import Propiedades from "./pages/Propiedades";
 import ScrollToTop from "./components/ScrollToTop";
 import ChatBotFAQ from "./components/ChatBotFAQ/ChatBotFAQ";
+import Proximamente from "./pages/Proximamente";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -26,8 +27,8 @@ function App() {
       <ChatBotFAQ />
       <NavBar />
       <Routes>
+        {/* <Route path="/" element={<Proximamente />} /> */}
         <Route path="/" element={<Home />} />
-        {/* <Route path="/info-propiedad" element={<InfoPropiedades />} /> */}
         <Route path="/info-propiedad/:id" element={<InfoPropiedades />} />
         <Route path="/nosotros" element={<Nosotros />} />
         <Route path="/contacto" element={<Contacto />} />
