@@ -1,85 +1,211 @@
 import { useState } from "react";
 import { FaWhatsapp, FaComments, FaTimes } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
-const FAQS = [
-  {
-    keywords: ["horario", "atencion", "abierto"],
-    answer: "Nuestro horario de atención es de lunes a viernes de 8 a 18 hs.",
+const PHONE = "5493755447658";
+
+const FLOWS = {
+  main: {
+    message: "¡Hola! 👋 ¿En qué podemos ayudarte?",
+    options: [
+      { label: "📅 Horarios", next: "horarios" },
+      { label: "🏠 Comprar propiedad", intent: "comprar" },
+      { label: "🏢 Alquilar propiedad", intent: "alquilar" },
+      { label: "💰 Tasar mi propiedad", intent: "tasacion" },
+    ],
   },
-  {
-    keywords: ["tasacion", "tasar"],
-    answer:
-      "Realizamos tasaciones sin cargo. Podés dejarnos tus datos o escribirnos por WhatsApp.",
+
+  horarios: {
+    message: "Nuestro horario de atención es de lunes a viernes de 8 a 18 hs.",
+    options: [{ label: "⬅ Volver al menú", next: "main" }],
   },
-  {
-    keywords: ["alquiler", "alquilar"],
-    answer:
-      "Contamos con propiedades en alquiler en distintas zonas. ¿Buscás algo en particular?",
+
+  tasacion: {
+    message:
+      "Podemos realizar la tasación sin cargo 👌 ¿Cómo preferís continuar?",
+    options: [
+      {
+        label: "🟢 Hablar por WhatsApp",
+        action: "whatsapp",
+        intent: "tasacion",
+      },
+      { label: "📝 Completar formulario de tasación", action: "form" },
+      { label: "⬅ Volver al menú", next: "main" },
+    ],
   },
-  {
-    keywords: ["venta", "comprar"],
-    answer:
-      "Tenemos casas, departamentos y terrenos en venta. Podés explorar el catálogo o consultarnos.",
+
+  comprar: {
+    message:
+      "Perfecto 👌 Podés hablar con un asesor o ver las propiedades disponibles en venta.",
+    options: [
+      {
+        label: "🟢 Hablar por WhatsApp",
+        action: "whatsapp",
+        intent: "comprar",
+      },
+      { label: "🔎 Ver propiedades en venta", action: "search", type: "venta" },
+      { label: "⬅ Volver al menú", next: "main" },
+    ],
   },
-];
+
+  alquilar: {
+    message:
+      "Perfecto 👌 Podés hablar con un asesor o ver las propiedades disponibles en alquiler.",
+    options: [
+      {
+        label: "🟢 Hablar por WhatsApp",
+        action: "whatsapp",
+        intent: "alquilar",
+      },
+      {
+        label: "🔎 Ver propiedades en alquiler",
+        action: "search",
+        type: "alquiler",
+      },
+      { label: "⬅ Volver al menú", next: "main" },
+    ],
+  },
+};
+
+const INTENT_MESSAGES = {
+  comprar: "Hola, estoy interesado en comprar una propiedad.",
+  alquilar: "Hola, estoy interesado en alquilar una propiedad.",
+  tasacion: "Hola, quiero tasar mi propiedad.",
+};
+
+const KEYWORDS = {
+  comprar: "comprar",
+  venta: "comprar",
+  alquilar: "alquilar",
+  alquiler: "alquilar",
+  tasar: "tasacion",
+  tasacion: "tasacion",
+  horario: "horarios",
+  atencion: "horarios",
+};
 
 export default function ChatBotFAQ() {
   const [open, setOpen] = useState(false);
-  const [messages, setMessages] = useState([
-    { from: "bot", text: "¡Hola! 👋 ¿En qué puedo ayudarte?" },
-  ]);
+  const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
+  const navigate = useNavigate();
 
-  const findAnswer = (text) => {
-    const lower = text.toLowerCase();
-    return FAQS.find((faq) => faq.keywords.some((k) => lower.includes(k)));
+  const sendFlow = (flowKey) => {
+    const flow = FLOWS[flowKey];
+
+    setMessages((prev) => [
+      ...prev,
+      { from: "bot", text: flow.message, options: flow.options },
+    ]);
   };
 
-  const sendMessage = () => {
+  const redirectToWhatsApp = (intent) => {
+    const message = encodeURIComponent(INTENT_MESSAGES[intent]);
+    window.open(`https://wa.me/${PHONE}?text=${message}`, "_blank");
+  };
+
+  const handleOptionClick = (option) => {
+    if (option.action === "whatsapp") {
+      redirectToWhatsApp(option.intent);
+      return;
+    }
+
+    if (option.action === "form") {
+      navigate("/tasacion");
+      setOpen(false);
+      return;
+    }
+
+    if (option.action === "search") {
+      navigate(`/propiedades?operacion=${option.type}`);
+      setOpen(false);
+      return;
+    }
+
+    if (option.next) {
+      sendFlow(option.next);
+      return;
+    }
+
+    if (option.intent) {
+      sendFlow(option.intent);
+      return;
+    }
+  };
+
+  const handleSendMessage = () => {
     if (!input.trim()) return;
 
-    const userMessage = { from: "user", text: input };
-    const match = findAnswer(input);
+    const lower = input.toLowerCase();
+    const matchedKey = Object.keys(KEYWORDS).find((k) => lower.includes(k));
 
-    const botMessage = match
-      ? { from: "bot", text: match.answer }
-      : {
+    setMessages((prev) => [...prev, { from: "user", text: input }]);
+
+    if (matchedKey) {
+      sendFlow(KEYWORDS[matchedKey]);
+    } else {
+      setMessages((prev) => [
+        ...prev,
+        {
           from: "bot",
-          text: "No estoy seguro de esa consulta 🤔. Si querés, podés hablar con un asesor por WhatsApp.",
-        };
+          text: "No estoy seguro 🤔. Podés elegir una opción del menú.",
+          options: FLOWS.main.options,
+        },
+      ]);
+    }
 
-    setMessages((prev) => [...prev, userMessage, botMessage]);
     setInput("");
+  };
+
+  const handleOpen = () => {
+    setOpen(!open);
+
+    if (!open && messages.length === 0) {
+      sendFlow("main");
+    }
   };
 
   return (
     <>
-      {/* Botón flotante */}
       <button
-        onClick={() => setOpen(!open)}
+        onClick={handleOpen}
         className="fixed bottom-6 right-6 bg-black text-white p-4 rounded-full shadow-lg z-50"
       >
         {open ? <FaTimes /> : <FaComments />}
       </button>
 
-      {/* Chat */}
       {open && (
         <div className="fixed bottom-20 right-6 w-80 bg-white rounded-xl shadow-xl flex flex-col z-50">
           <div className="bg-black text-white p-3 rounded-t-xl">
             Asistente virtual
           </div>
 
-          <div className="flex-1 p-3 space-y-2 overflow-y-auto text-sm">
+          <div className="flex-1 p-3 space-y-3 overflow-y-auto text-sm">
             {messages.map((m, i) => (
-              <div
-                key={i}
-                className={`p-2 rounded ${
-                  m.from === "bot"
-                    ? "bg-gray-100 text-left"
-                    : "bg-black text-white text-right"
-                }`}
-              >
-                {m.text}
+              <div key={i}>
+                <div
+                  className={`p-2 rounded ${
+                    m.from === "bot"
+                      ? "bg-gray-100 text-left"
+                      : "bg-black text-white text-right"
+                  }`}
+                >
+                  {m.text}
+                </div>
+
+                {m.options && (
+                  <div className="flex flex-col gap-2 mt-2">
+                    {m.options.map((opt, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => handleOptionClick(opt)}
+                        className="bg-gray-200 hover:bg-gray-300 text-left px-2 py-1 rounded text-xs"
+                      >
+                        {opt.label}
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
             ))}
           </div>
@@ -90,23 +216,15 @@ export default function ChatBotFAQ() {
               onChange={(e) => setInput(e.target.value)}
               placeholder="Escribí tu consulta..."
               className="flex-1 border rounded px-2 py-1 text-sm"
+              onKeyDown={(e) => e.key === "Enter" && handleSendMessage()}
             />
             <button
-              onClick={sendMessage}
+              onClick={handleSendMessage}
               className="bg-black text-white px-3 rounded"
             >
               Enviar
             </button>
           </div>
-
-          <a
-            href="https://wa.me/5493755447658"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 text-green-600 text-sm p-2 border-t"
-          >
-            <FaWhatsapp /> Hablar por WhatsApp
-          </a>
         </div>
       )}
     </>
