@@ -24,18 +24,18 @@ function App() {
   return (
     <Router>
       <ScrollToTop />
-      <ChatBotFAQ />
-      <NavBar />
+      {/* <ChatBotFAQ />
+      <NavBar /> */}
       <Routes>
-        {/* <Route path="/" element={<Proximamente />} /> */}
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Proximamente />} />
+        {/* <Route path="/" element={<Home />} />
         <Route path="/info-propiedad/:id" element={<InfoPropiedades />} />
         <Route path="/nosotros" element={<Nosotros />} />
         <Route path="/contacto" element={<Contacto />} />
         <Route path="/tasaciones" element={<Tasaciones />} />
-        <Route path="/propiedades" element={<Propiedades />} />
+        <Route path="/propiedades" element={<Propiedades />} /> */}
       </Routes>
-      <Footer />
+      {/* <Footer /> */}
     </Router>
   );
 }
