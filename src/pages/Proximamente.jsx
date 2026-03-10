@@ -8,11 +8,7 @@ const Proximamente = () => {
         {/* Logo */}
         <div className="mb-10 flex justify-center">
           <div className="p-6 rounded-full bg-white/100 border border-white/10 backdrop-blur-md">
-            <img
-              src={logo}
-              alt="L&R"
-              className="w-16 drop-shadow-[0_0_10px_rgba(236,31,36,0.35)]"
-            />
+            <img src={logo} alt="L&R" className="w-16 " />
           </div>
         </div>
 
