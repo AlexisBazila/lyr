@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./propertyCard.css";
 import SmallButton from "../smallButton/SmallButton";
-import image from "../../assets/images/noimage.png";
 import sellExample from "../../assets/images/sellExample.jpg";
 import { GoDotFill } from "react-icons/go";
 import { IoPauseCircle, IoEyeOffOutline } from "react-icons/io5";
